@@ -43,6 +43,8 @@ namespace ShopWeb
 
             services.AddTransient<SeedDb>();
 
+            services.AddScoped<IRepository, Repository>();
+
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }
 

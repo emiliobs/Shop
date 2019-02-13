@@ -73,14 +73,15 @@
         }
 
         // GET: Products/Edit/5
-        public async Task<IActionResult> Edit(int? id)
+        public IActionResult Edit(int? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var product = await _context.Products.FindAsync(id);
+            var product = this.repository.GetProduct(id.Value);
+
             if (product == null)
             {
                 return NotFound();
@@ -93,7 +94,7 @@
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ProductId,Name,Price,ImageUrl,LastPurchase,LastSale,IsAvailable,Stock")] Product product)
+        public async Task<IActionResult> Edit(int id, Product product)
         {
             if (id != product.ProductId)
             {
@@ -104,12 +105,12 @@
             {
                 try
                 {
-                    _context.Update(product);
-                    await _context.SaveChangesAsync();
+                    this.repository.UpdateProduct(product);
+                    await this.repository.SaveAllAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!ProductExists(product.ProductId))
+                    if (!this.repository.ProductExists(product.ProductId))
                     {
                         return NotFound();
                     }
@@ -124,15 +125,15 @@
         }
 
         // GET: Products/Delete/5
-        public async Task<IActionResult> Delete(int? id)
+        public IActionResult Delete(int? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var product = await _context.Products
-                .FirstOrDefaultAsync(m => m.ProductId == id);
+            var product = this.repository.GetProduct(id.Value);
+
             if (product == null)
             {
                 return NotFound();
@@ -146,16 +147,19 @@
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var product = await _context.Products.FindAsync(id);
-            _context.Products.Remove(product);
-            await _context.SaveChangesAsync();
+            var product = this.repository.GetProduct(id);
+
+            this.repository.DeleteProduct(product);
+
+            await this.repository.SaveAllAsync();
+
             return RedirectToAction(nameof(Index));
         }
 
-        private bool ProductExists(int id)
-        {
-            return _context.Products.Any(e => e.ProductId == id);
-        } 
+        //private bool ProductExists(int id)
+        //{
+        //    return _context.Products.Any(e => e.ProductId == id);
+        //} 
 
         #endregion
     }
