@@ -39,6 +39,8 @@ namespace ShopWeb
 
             });
 
+            //aqui lleo la bd de datos para pruebas.
+
             services.AddTransient<SeedDb>();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
