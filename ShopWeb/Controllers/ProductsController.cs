@@ -1,40 +1,45 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
-using ShopWeb.Data;
-using ShopWeb.Data.Entities;
-
-namespace ShopWeb.Controllers
+﻿namespace ShopWeb.Controllers
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Threading.Tasks;
+    using Microsoft.AspNetCore.Mvc;
+    using Microsoft.AspNetCore.Mvc.Rendering;
+    using Microsoft.EntityFrameworkCore;
+    using ShopWeb.Data;
+    using ShopWeb.Data.Entities;
     public class ProductsController : Controller
     {
-        private readonly DataContext _context;
+        #region Attributes
+        private readonly IRepository repository;
+        #endregion
 
-        public ProductsController(DataContext context)
+        #region Costructor
+        public ProductsController(IRepository repository)
         {
-            _context = context;
+            this.repository = repository;
         }
+        #endregion
+
+        #region Methods
 
         // GET: Products
-        public async Task<IActionResult> Index()
+        public IActionResult Index()
         {
-            return View(await _context.Products.ToListAsync());
+            return View(this.repository.GetProducts());
         }
 
         // GET: Products/Details/5
-        public async Task<IActionResult> Details(int? id)
+        public IActionResult Details(int? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var product = await _context.Products
-                .FirstOrDefaultAsync(m => m.ProductId == id);
+            var product = this.repository.GetProduct(id.Value);
+
             if (product == null)
             {
                 return NotFound();
@@ -54,12 +59,14 @@ namespace ShopWeb.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ProductId,Name,Price,ImageUrl,LastPurchase,LastSale,IsAvailable,Stock")] Product product)
+        public async Task<IActionResult> Create(Product product)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(product);
-                await _context.SaveChangesAsync();
+                this.repository.AddProduct(product);
+
+                await this.repository.SaveAllAsync();
+
                 return RedirectToAction(nameof(Index));
             }
             return View(product);
@@ -148,6 +155,8 @@ namespace ShopWeb.Controllers
         private bool ProductExists(int id)
         {
             return _context.Products.Any(e => e.ProductId == id);
-        }
+        } 
+
+        #endregion
     }
 }
