@@ -6,9 +6,9 @@
     using System.Linq;
     using System.Threading.Tasks;
 
-    public class Product
+    public class Product : IEntity
     {
-        public int ProductId { get; set; }
+        public int Id { get; set; }
 
         [Required]
         [MaxLength(50, ErrorMessage = "The field {0} only ca contain {1} characters length.")]

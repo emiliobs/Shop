@@ -13,6 +13,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using ShopWeb.Data;
 using ShopWeb.Data.Entities;
+using ShopWeb.Helpers;
 
 namespace ShopWeb
 {
@@ -45,7 +46,9 @@ namespace ShopWeb
 
             services.AddTransient<SeedDb>();
 
-            services.AddScoped<IRepository, Repository>();
+            services.AddScoped<IProductRepository, ProductRepository>();
+            services.AddScoped<ICountryRepository, CountryRepository>();
+            services.AddScoped<IUserHelper, UserHelper>();
 
             //configuracion del identitypara los usuaarios:
             services.AddIdentity<User, IdentityRole>(options => 

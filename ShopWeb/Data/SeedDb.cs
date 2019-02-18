@@ -2,27 +2,30 @@
 {
     using Microsoft.AspNetCore.Identity;
     using ShopWeb.Data.Entities;
+    using ShopWeb.Helpers;
     using System;
     using System.Linq;
     using System.Threading.Tasks;
     public class SeedDb
     {
-        private readonly DataContext db;
-        private readonly UserManager<User> userManager;
+        private readonly DataContext contex;
+        private readonly IUserHelper userHelper;
+       
         private readonly Random random;
-        public SeedDb(DataContext context, UserManager<User> userManager)
+        public SeedDb(DataContext context, IUserHelper userHelper)
         {
-            this.db = context;
-            this.userManager = userManager;
+            this.contex = context;
+            this.userHelper = userHelper;
+           
             this.random = new Random();
         }
 
         public async Task SeedAsync()
         {
-            await this.db.Database.EnsureCreatedAsync();
+            await this.contex.Database.EnsureCreatedAsync();
 
             //aqui creo el nuevo usuario admin(principal del sistema)
-            var user = await this.userManager.FindByEmailAsync("barrera_emilio@hotmail.com");
+            var user = await this.userHelper.GetUserByEmailAsync("barrera_emilio@hotmail.com");
 
             if (user == null)
             {
@@ -36,7 +39,7 @@
 
                 };
 
-                var result = await this.userManager.CreateAsync(user,"Eabs123.");
+                var result = await this.userHelper.AddUserAsycncAsync(user,"Eabs123.");
 
                 if (result != IdentityResult.Success)
                 {
@@ -44,19 +47,19 @@
                 }
             }
 
-            if (!this.db.Products.Any())
+            if (!this.contex.Products.Any())
             {
                 this.AddProduct("iPhone x", user);
                 this.AddProduct("Magic Mouse", user);
                 this.AddProduct("IWatch series 4", user);
 
-                await db.SaveChangesAsync();
+                await contex.SaveChangesAsync();
             }
         }
 
         private void AddProduct(string name , User user)
         {
-            db.Products.Add(new Product()
+            contex.Products.Add(new Product()
             {
                 Name = name,
                 Price = random.Next(100),
