@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Builder;
+﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -42,6 +37,9 @@ namespace ShopWeb
 
             });
 
+            //services.Configure<IISServerOptions>(options => { options.AutomaticAuthentication = true; });
+            //services.Configure<IISOptions>(options => { options.ForwardClientCertificate = true; });
+
             //aqui lleo la bd de datos para pruebas.
 
             services.AddTransient<SeedDb>();
@@ -51,7 +49,7 @@ namespace ShopWeb
             services.AddScoped<IUserHelper, UserHelper>();
 
             //configuracion del identitypara los usuaarios:
-            services.AddIdentity<User, IdentityRole>(options => 
+            services.AddIdentity<User, IdentityRole>(options =>
             {
                 options.User.RequireUniqueEmail = true;
                 options.Password.RequireDigit = false;
@@ -59,7 +57,7 @@ namespace ShopWeb
                 options.Password.RequireLowercase = false;
                 options.Password.RequireNonAlphanumeric = false;
                 options.Password.RequireUppercase = false;
-                options.Password.RequiredLength = 6 ;
+                options.Password.RequiredLength = 6;
             }).AddEntityFrameworkStores<DataContext>();
 
 
@@ -71,7 +69,7 @@ namespace ShopWeb
         {
             if (env.IsDevelopment())
             {
-                app.UseDeveloperExceptionPage();
+              app.UseDeveloperExceptionPage();
             }
             else
             {

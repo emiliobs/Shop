@@ -25,8 +25,11 @@
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.ImageUrl)
         </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.ImageUrl)
+        <dd class="col-sm-10">
+            @if (!string.IsNullOrEmpty(Model.ImageUrl))
+            {
+                <img src="@Url.Content(Model.ImageUrl)" alt="Image" style="width:200px; height:300px; max-height:100%; height:auto;" />
+            }
         </dd>
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.LastPurchase)

@@ -16,7 +16,7 @@
       }
     },
     "ShopWeb": {
-      "commandName": "Project",
+      "commandName": "Development",
       "launchBrowser": true,
       "applicationUrl": "https://localhost:5001;http://localhost:5000",
       "environmentVariables": {
