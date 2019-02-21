@@ -2,6 +2,7 @@
 {
     using Microsoft.AspNetCore.Mvc;
     using ShopWeb.Data;
+   
 
     [Route("api/[Controller]")]
     public class ProductsController : Controller
@@ -23,7 +24,7 @@
         public IActionResult GetProducts()
         {
             
-            return Ok(this.productRepository.GetAll()); 
+            return Ok(this.productRepository.GetAllWithUsers()); 
         }
 
         #endregion
