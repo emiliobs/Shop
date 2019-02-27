@@ -13,6 +13,16 @@
 
         #endregion
 
+        #region Contructors
+
+        public LoginViewModel()
+        {
+            Email = "emilio@gmail.com";
+            Password = "Emilio123.";
+        }
+
+        #endregion
+
         #region Commands
 
         public ICommand LoginCommand { get => new RelayCommand(Login); }
@@ -39,9 +49,20 @@
                 return;
             }
 
-            await Application.Current.MainPage.DisplayAlert("Ok", "Fouck yearrrrr", "Accept");
 
-            
+            if (!Email.Equals("emilio@gmail.com") || !Password.Equals("Emilio123."))
+            {
+
+                await Application.Current.MainPage.DisplayAlert("Error", "User or Password wrong", "Accept");
+                return;
+
+            }
+
+            await Application.Current.MainPage.DisplayAlert("Ok", "Fuck yearrrrr", "Accept");
+
+
+
+
 
         }
 

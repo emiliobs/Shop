@@ -67,13 +67,20 @@
         {
             if (ModelState.IsValid)
             {
-
+                                  
                 string path = string.Empty;
                 if (productViewModel.ImageFile != null && productViewModel.ImageFile.Length > 0)
                 {
-                    //aqui es la ruta del servido local
-                    path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot\\images\\Products",
-                                        productViewModel.ImageFile.FileName);
+                    //variable para que no se repita una aimagen
+                    var guid = Guid.NewGuid().ToString(); 
+                    var file = $"{guid}.jpg";
+
+                    //aqui es la ruta del servido local  nombre original del la foto
+                    //path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot\\images\\Products",
+                    //                    productViewModel.ImageFile.FileName);
+
+                    //aqui es la ruta del servido local  nombre aleatorio de la foto
+                    path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot\\images\\Products",file);
 
 
                     //Aqui la publico
@@ -82,7 +89,8 @@
                         await productViewModel.ImageFile.CopyToAsync(stream);
                     }
 
-                    path = $"~/images/Products/{productViewModel.ImageFile.FileName}";
+                   // path = $"~/images/Products/{productViewModel.ImageFile.FileName}";
+                    path = $"~/images/Products/{file}";
                 }
 
 
@@ -171,11 +179,13 @@
                 {
 
                     var path = productViewModel.ImageUrl;
-
+                   
                     if (productViewModel.ImageFile != null && productViewModel.ImageFile.Length > 0)
                     {
-                        path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot\\images\\Products",
-                               productViewModel.ImageFile.FileName);
+                        var guid =  Guid.NewGuid().ToString();
+                        var file = $"{guid}.jpg";
+
+                        path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot\\images\\Products",file);
 
 
                         using (var stream = new FileStream(path, FileMode.Create))
@@ -185,7 +195,7 @@
 
                         }
                             
-                        path = $"~/images/Products/{productViewModel.ImageFile.FileName}";
+                        path = $"~/images/Products/{file}";
 
                 }
 
