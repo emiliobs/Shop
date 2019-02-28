@@ -1,4 +1,5 @@
-﻿using ShopUIForms.Views;
+﻿using ShopUIForms.ViewModels;
+using ShopUIForms.Views;
 using System;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
@@ -12,6 +13,9 @@ namespace ShopUIForms
         {
             InitializeComponent();
 
+
+            //aqui instacion la clase loginviewmodel con el patron singleston del mailviewmodel:
+            MainViewModel.GetInstance().Login = new LoginViewModel();
             MainPage = new NavigationPage(new LoginPage());
         }
 

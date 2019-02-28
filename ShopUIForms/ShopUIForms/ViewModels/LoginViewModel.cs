@@ -1,6 +1,7 @@
 ﻿namespace ShopUIForms.ViewModels
 {
     using GalaSoft.MvvmLight.Command;
+    using ShopUIForms.Views;
     using System.Windows.Input;
     using Xamarin.Forms;
 
@@ -58,7 +59,13 @@
 
             }
 
-            await Application.Current.MainPage.DisplayAlert("Ok", "Fuck yearrrrr", "Accept");
+            //await Application.Current.MainPage.DisplayAlert("Ok", "Fuck yearrrrr", "Accept"); 
+
+
+            //Aqui intacion con el singleto del main  viewmodel:
+            MainViewModel.GetInstance().Products = new ProductsViewModels();
+            //aqui navego a la pagina de products y veo la llista de los mismos:
+            await Application.Current.MainPage.Navigation.PushAsync(new ProductsPage());
 
 
 
