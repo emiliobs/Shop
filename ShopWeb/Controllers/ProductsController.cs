@@ -1,5 +1,6 @@
 ﻿namespace ShopWeb.Controllers
 {
+    using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.EntityFrameworkCore;
     using ShopWeb.Data;
@@ -11,6 +12,8 @@
     using System.Linq;
     using System.Threading.Tasks;
 
+
+    [Authorize]
     public class ProductsController : Controller
     {
         #region Attributes

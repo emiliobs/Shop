@@ -19,4 +19,9 @@
     <Folder Include="wwwroot\images\Products\" />
   </ItemGroup>
 
+
+  <ItemGroup>
+    <ProjectReference Include="..\ShopUIForms\ShopUIForms\ShopUIForms.csproj" />
+  </ItemGroup>
+
 </Project>
