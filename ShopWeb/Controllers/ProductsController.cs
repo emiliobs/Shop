@@ -99,8 +99,9 @@
 
                 var product = this.ToProduct(productViewModel, path);
 
-                //TODO: Change fir the logged user:
-                product.User = await this.userHelper.GetUserByEmailAsync("barrera_emilio@hotmail.com");
+               
+                //product.User = await this.userHelper.GetUserByEmailAsync("barrera_emilio@hotmail.com");
+                product.User = await this.userHelper.GetUserByEmailAsync(this.User.Identity.Name);
 
                 await this.productRepository.CreateAsync(product);
 
@@ -204,8 +205,9 @@
 
                     var product = this.ToProduct(productViewModel, path);
 
-                    //TODO: Change fir the logged user:
-                    product.User = await this.userHelper.GetUserByEmailAsync("barrera_emilio@hotmail.com");
+                    
+                    //product.User = await this.userHelper.GetUserByEmailAsync("barrera_emilio@hotmail.com");
+                    product.User = await this.userHelper.GetUserByEmailAsync(User.Identity.Name);
 
                     await this.productRepository.UpdateAsync(product);
 
