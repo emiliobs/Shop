@@ -6,9 +6,11 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.IdentityModel.Tokens;
 using ShopWeb.Data;
 using ShopWeb.Data.Entities;
 using ShopWeb.Helpers;
+using System.Text;
 
 namespace ShopWeb
 {
@@ -60,6 +62,16 @@ namespace ShopWeb
                 options.Password.RequiredLength = 6;
             }).AddEntityFrameworkStores<DataContext>();
 
+            services.AddAuthentication().AddCookie().AddJwtBearer(cfg =>
+      {
+          cfg.TokenValidationParameters = new TokenValidationParameters
+          {
+              ValidIssuer = this.Configuration["Tokens:Issuer"],
+              ValidAudience = this.Configuration["Tokens:Audience"],
+              IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(this.Configuration["Tokens:key"]))
+          };
+      });
+
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }
@@ -69,7 +81,7 @@ namespace ShopWeb
         {
             if (env.IsDevelopment())
             {
-              app.UseDeveloperExceptionPage();
+                app.UseDeveloperExceptionPage();
             }
             else
             {

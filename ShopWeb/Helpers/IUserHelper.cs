@@ -12,5 +12,6 @@
         Task LogoutAsyc();
         Task<IdentityResult> UpdateUserAsyc(User user);
         Task<IdentityResult> ChangedPasswordAsync(User user, string oldPassword, string newPassword );
+        Task<SignInResult> ValidatePasswordAsync(User user, string password);
     }
 }
