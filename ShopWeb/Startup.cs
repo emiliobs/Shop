@@ -33,6 +33,8 @@ namespace ShopWeb
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
+           
+
             services.AddDbContext<DataContext>(options =>
             {
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"));
@@ -72,6 +74,12 @@ namespace ShopWeb
           };
       });
 
+            //aqui utilizo la vista de no autorizado ya sea por login or acceso deegado:
+            services.ConfigureApplicationCookie(options =>
+            {
+                options.LoginPath = "/Account/NotAuthorized";
+                options.AccessDeniedPath = "/Account/NotAuthorized";
+            });
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }
@@ -89,6 +97,10 @@ namespace ShopWeb
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
+
+
+            //esta app la ujtilizo para la o existencia de las view:
+            app.UseStatusCodePagesWithReExecute("/error/{0}");
 
             app.UseHttpsRedirection();
             app.UseAuthentication();

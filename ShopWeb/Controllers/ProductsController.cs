@@ -13,7 +13,7 @@
     using System.Threading.Tasks;
 
 
-  
+
     public class ProductsController : Controller
     {
         #region Attributes
@@ -42,14 +42,16 @@
         {
             if (id == null)
             {
-                return NotFound();
+                return new NotFoundViewResult("ProductNotFound");
+                //return NotFound();
             }
 
             Product product = await this.productRepository.GetByIdAsync(id.Value);
 
             if (product == null)
             {
-                return NotFound();
+                return new NotFoundViewResult("ProductNotFound");
+                //return NotFound();
             }
 
             return View(product);
@@ -71,12 +73,12 @@
         {
             if (ModelState.IsValid)
             {
-                                  
+
                 string path = string.Empty;
                 if (productViewModel.ImageFile != null && productViewModel.ImageFile.Length > 0)
                 {
                     //variable para que no se repita una aimagen
-                    var guid = Guid.NewGuid().ToString(); 
+                    var guid = Guid.NewGuid().ToString();
                     var file = $"{guid}.jpg";
 
                     //aqui es la ruta del servido local  nombre original del la foto
@@ -84,7 +86,7 @@
                     //                    productViewModel.ImageFile.FileName);
 
                     //aqui es la ruta del servido local  nombre aleatorio de la foto
-                    path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot\\images\\Products",file);
+                    path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot\\images\\Products", file);
 
 
                     //Aqui la publico
@@ -93,14 +95,14 @@
                         await productViewModel.ImageFile.CopyToAsync(stream);
                     }
 
-                   // path = $"~/images/Products/{productViewModel.ImageFile.FileName}";
+                    // path = $"~/images/Products/{productViewModel.ImageFile.FileName}";
                     path = $"~/images/Products/{file}";
                 }
 
 
                 var product = this.ToProduct(productViewModel, path);
 
-               
+
                 //product.User = await this.userHelper.GetUserByEmailAsync("barrera_emilio@hotmail.com");
                 product.User = await this.userHelper.GetUserByEmailAsync(this.User.Identity.Name);
 
@@ -127,24 +129,24 @@
 
             };
         }
-                                                                         
+
         [Authorize(Roles = "Admin")]
         // GET: Products/Edit/5
         public async Task<ActionResult> Edit(int? id)
         {
             if (id == null)
             {
-                return NotFound();
+                return new NotFoundViewResult("ProductNotFound");
             }
 
             Product product = await this.productRepository.GetByIdAsync(id.Value);
 
             if (product == null)
             {
-                return NotFound();
+                return new NotFoundViewResult("ProductNotFound");
             }
 
-            var productViewModel = this.ToProductViewModel(product); 
+            var productViewModel = this.ToProductViewModel(product);
 
             return View(productViewModel);
         }
@@ -153,9 +155,9 @@
         {
             return new ProductViewModel()
             {
-                Id =  product.Id,
-                ImageUrl =  product.ImageUrl,
-                IsAvailable =  product.IsAvailable,
+                Id = product.Id,
+                ImageUrl = product.ImageUrl,
+                IsAvailable = product.IsAvailable,
                 LastPurchase = product.LastPurchase,
                 LastSale = product.LastSale,
                 Name = product.Name,
@@ -174,7 +176,7 @@
         {
             if (id != productViewModel.Id)
             {
-                return NotFound();
+                return new NotFoundViewResult("ProductNotFound");
             }
 
             if (ModelState.IsValid)
@@ -183,13 +185,13 @@
                 {
 
                     var path = productViewModel.ImageUrl;
-                   
+
                     if (productViewModel.ImageFile != null && productViewModel.ImageFile.Length > 0)
                     {
-                        var guid =  Guid.NewGuid().ToString();
+                        var guid = Guid.NewGuid().ToString();
                         var file = $"{guid}.jpg";
 
-                        path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot\\images\\Products",file);
+                        path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot\\images\\Products", file);
 
 
                         using (var stream = new FileStream(path, FileMode.Create))
@@ -198,14 +200,14 @@
                             await productViewModel.ImageFile.CopyToAsync(stream);
 
                         }
-                            
+
                         path = $"~/images/Products/{file}";
 
-                }
+                    }
 
                     var product = this.ToProduct(productViewModel, path);
 
-                    
+
                     //product.User = await this.userHelper.GetUserByEmailAsync("barrera_emilio@hotmail.com");
                     product.User = await this.userHelper.GetUserByEmailAsync(User.Identity.Name);
 
@@ -216,7 +218,7 @@
                 {
                     if (!await this.productRepository.ExistAsync(productViewModel.Id))
                     {
-                        return NotFound();
+                        return new NotFoundViewResult("ProductNotFound");
                     }
                     else
                     {
@@ -234,14 +236,14 @@
         {
             if (id == null)
             {
-                return NotFound();
+                return new NotFoundViewResult("ProductNotFound");
             }
 
             Product product = await this.productRepository.GetByIdAsync(id.Value);
 
             if (product == null)
             {
-                return NotFound();
+                return new NotFoundViewResult("ProductNotFound");
             }
 
             return View(product);
@@ -258,6 +260,11 @@
 
 
             return RedirectToAction(nameof(Index));
+        }
+
+        public ActionResult ProductNotFound()
+        {
+            return View();
         }
 
         //private bool ProductExists(int id)
