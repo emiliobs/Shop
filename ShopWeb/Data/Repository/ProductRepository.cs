@@ -1,5 +1,6 @@
 ﻿namespace ShopWeb.Data
 {
+    using Microsoft.AspNetCore.Mvc.Rendering;
     using Microsoft.EntityFrameworkCore;
     using ShopWeb.Data.Entities;
     using System;
@@ -17,5 +18,22 @@
 
         public IQueryable GetAllWithUsers() => this.context.Products.Include(p => p.User);
 
+        public IEnumerable<SelectListItem> GetComboProducts()
+        {
+            var list = context.Products.Select(p => new SelectListItem
+            {
+                Text = p.Name,
+                Value = p.Id.ToString(),
+               
+            }).ToList();
+
+            list.Insert(0, new SelectListItem
+            {
+                Text = "(Select a Product.....)",
+                Value = "0",
+            });
+
+            return list;
+        }
     }
 }

@@ -9,6 +9,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using ShopWeb.Data;
 using ShopWeb.Data.Entities;
+using ShopWeb.Data.Repository;
 using ShopWeb.Helpers;
 using System.Text;
 
@@ -46,11 +47,11 @@ namespace ShopWeb
 
             //aqui lleo la bd de datos para pruebas.
 
-            services.AddTransient<SeedDb>();
-
+            services.AddTransient<SeedDb>();  
             services.AddScoped<IProductRepository, ProductRepository>();
             services.AddScoped<ICountryRepository, CountryRepository>();
             services.AddScoped<IUserHelper, UserHelper>();
+            services.AddScoped<IOrderRepository, OrderRepository>();
 
             //configuracion del identitypara los usuaarios:
             services.AddIdentity<User, IdentityRole>(options =>
