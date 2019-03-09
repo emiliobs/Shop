@@ -4,6 +4,7 @@
     using ShopWeb.Data.Entities;
     using ShopWeb.Helpers;
     using ShopWeb.Models;
+    using System;
     using System.Linq;
     using System.Threading.Tasks;
 
@@ -36,7 +37,10 @@
             //si el usurio es admin
             if (await userHelper.IsUserInRoleAsync(user, "Admin"))
             {
-                return context.Orders.Include(o => o.Items).ThenInclude(p => p.Product).OrderByDescending(o => o.OrderDate);
+                return context.Orders.Include(u => u.User)
+                                     .Include(o => o.Items)
+                                     .ThenInclude(p => p.Product)
+                                     .OrderByDescending(o => o.OrderDate);
             }
 
             //si el usuario es user:
@@ -120,6 +124,44 @@
 
             context.OrderDetailTemps.Remove(orderDetailsTemp);
             await context.SaveChangesAsync();
+        }
+
+        public async Task<bool> ConfirmOrderAsync(string userName)
+        {
+            var user = await userHelper.GetUserByEmailAsync(userName);
+            if (user == null)
+            {
+                return false;
+            }
+
+            var orderDetailtemp = await context.OrderDetailTemps.Include(p => p.Product).Where(u => u.User.Equals(user))
+                                              .ToListAsync();
+            if (orderDetailtemp == null || orderDetailtemp.Count == 0)
+            {
+                return false;
+            }
+
+            //aqui no uso forech u so programación funcional:
+            var orderDetails = orderDetailtemp.Select(odt =>  new OrderDetail()
+            {
+               Price = odt.Price,
+               Product = odt.Product,
+               Quantity = odt.Quantity
+            }).ToList();
+
+            var order = new Order()
+            {
+               OrderDate = DateTime.UtcNow,
+               User = user,
+               Items = orderDetails,
+            };
+
+            context.Orders.Add(order);
+            context.OrderDetailTemps.RemoveRange(orderDetailtemp);
+            await context.SaveChangesAsync();
+
+            return true;
+
         }
 
         #endregion

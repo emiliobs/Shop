@@ -95,6 +95,17 @@
             return RedirectToAction("Create");
         }
 
+        public async Task<IActionResult> ConfirmOrder()
+        {
+            var response = await orderRepository.ConfirmOrderAsync(User.Identity.Name);
+            if (response)
+            {
+                return RedirectToAction("Index");
+            }
+
+            return RedirectToAction("Create");
+        }
+
         #endregion
     }
 }
