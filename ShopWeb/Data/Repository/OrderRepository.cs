@@ -3,6 +3,7 @@
     using Microsoft.EntityFrameworkCore;
     using ShopWeb.Data.Entities;
     using ShopWeb.Helpers;
+    using ShopWeb.Models;
     using System.Linq;
     using System.Threading.Tasks;
 
@@ -20,7 +21,7 @@
             this.userHelper = userHelper;
         }
 
-     
+
         #endregion
 
         #region Methods
@@ -53,6 +54,72 @@
             }
 
             return context.OrderDetailTemps.Include(o => o.Product).Where(o => o.User.Equals(user)).OrderBy(o => o.Product.Name);
+        }
+
+        public async Task AddItemToOrderAsync(AddItemViewModel model, string userName)
+        {
+            var user = await userHelper.GetUserByEmailAsync(userName);
+            if (user == null)
+            {
+                return;
+            }
+
+            var product = await context.Products.FindAsync(model.ProductId);
+            if (product == null)
+            {
+                return;
+            }
+
+            var orderDeetailTemp = await context.OrderDetailTemps.Where(odt => odt.User.Equals(user) && odt.Product.Equals(product))
+                                   .FirstOrDefaultAsync();
+            if (orderDeetailTemp == null)
+            {
+                orderDeetailTemp = new OrderDetailTemp()
+                {
+                    Price = product.Price,
+                    Product = product,
+                    Quantity = model.Quantity,
+                    User = user,
+                };
+
+                context.OrderDetailTemps.Add(orderDeetailTemp);
+            }
+            else
+            {
+                orderDeetailTemp.Quantity += model.Quantity;
+                context.OrderDetailTemps.Update(orderDeetailTemp);
+            }
+
+            await context.SaveChangesAsync();
+        }
+
+        public async Task ModifyOrderDetailTempQuantityAsync(int id, double quantity)
+        {
+            var orderDetailsTemp = await context.OrderDetailTemps.FindAsync(id);
+
+            if (orderDetailsTemp == null)
+            {
+                return;
+            }
+
+            orderDetailsTemp.Quantity += quantity;
+            if (orderDetailsTemp.Quantity > 0)
+            {
+                context.OrderDetailTemps.Update(orderDetailsTemp);
+                await context.SaveChangesAsync();
+            }
+        }
+
+        public async Task DeleteDetailTempAsync(int id)
+        {
+            var orderDetailsTemp = await context.OrderDetailTemps.FindAsync(id);
+            if (orderDetailsTemp == null)
+            {
+                return;
+            }
+
+            context.OrderDetailTemps.Remove(orderDetailsTemp);
+            await context.SaveChangesAsync();
         }
 
         #endregion
