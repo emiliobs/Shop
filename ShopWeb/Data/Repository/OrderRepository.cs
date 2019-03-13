@@ -164,6 +164,25 @@
 
         }
 
+        public async Task DeliveryOrder(DeliverViewModel deliverViewModel)
+        {
+            //Busco si la order existe:
+            var order = await this.context.Orders.FindAsync(deliverViewModel.Id);
+            if (order == null)
+            {
+                return;
+            }
+
+            order.DeliveryDate = deliverViewModel.DeliveryDate;
+            this.context.Orders.Update(order);
+            await this.context.SaveChangesAsync();
+        }
+
+        public async Task<Order> GetOrdersAsync(int id)
+        {
+            return await this.context.Orders.FindAsync(id);
+        }
+
         #endregion
     }
 }

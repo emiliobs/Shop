@@ -1,5 +1,7 @@
 ﻿namespace ShopWeb.Controllers
 {
+    using System;
+    using System.ComponentModel.DataAnnotations;
     using System.Threading.Tasks;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
@@ -104,6 +106,41 @@
             }
 
             return RedirectToAction("Create");
+        }
+
+        public async Task<IActionResult> Deliver(int? id)
+        {
+            if (id == null)
+            {
+                return new NotFoundObjectResult("OrderNotFound");
+            }
+
+            //busco la order e la bd:
+            var order = await this.orderRepository.GetOrdersAsync(id.Value);
+            if (order == null)
+            {
+                return new NotFoundObjectResult("OrderNotFound");
+            }
+
+            var model = new DeliverViewModel()
+            {
+                Id = order.Id,
+                DeliveryDate = DateTime.Today,
+            };
+
+            return View(model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Deliver(DeliverViewModel deliverViewModel)
+        {
+            if (this.ModelState.IsValid)
+            {
+                await this.orderRepository.DeliveryOrder(deliverViewModel);
+                return this.RedirectToAction("Index");
+            }
+
+            return View();
         }
 
         #endregion

@@ -15,6 +15,9 @@
         Task ModifyOrderDetailTempQuantityAsync(int id, double quantity);
         Task DeleteDetailTempAsync(int id);
         Task<bool> ConfirmOrderAsync(string userName);
+        Task DeliveryOrder(DeliverViewModel deliverViewModel);
+        Task <Order> GetOrdersAsync(int id);
+
 
     }
 }
