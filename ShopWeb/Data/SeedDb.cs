@@ -1,93 +1,102 @@
 ﻿namespace ShopWeb.Data
 {
-    using Microsoft.AspNetCore.Identity;
-    using ShopWeb.Data.Entities;
-    using ShopWeb.Helpers;
     using System;
+    using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
+    using Entities;
+    using Helpers;
+    using Microsoft.AspNetCore.Identity;
+
     public class SeedDb
     {
-        #region Attributes
-        private readonly DataContext contex;
-        private readonly IUserHelper userHelper; 
+        private readonly DataContext context;
+        private readonly IUserHelper userHelper;
         private readonly Random random;
-        #endregion
 
-        #region Constructor
         public SeedDb(DataContext context, IUserHelper userHelper)
         {
-            this.contex = context;
+            this.context = context;
             this.userHelper = userHelper;
-
             this.random = new Random();
         }
-        #endregion
 
-        #region Methods
         public async Task SeedAsync()
         {
-            await this.contex.Database.EnsureCreatedAsync();
+            await this.context.Database.EnsureCreatedAsync();
 
-            //aqui miro si existen los roles:
-            await userHelper.CheckRoleAsync("Admin");
-            await userHelper.CheckRoleAsync("Customer");
+            await this.userHelper.CheckRoleAsync("Admin");
+            await this.userHelper.CheckRoleAsync("Customer");
 
-            //aqui creo el nuevo usuario admin(principal del sistema)
+            if (!this.context.Countries.Any())
+            {
+                var cities = new List<City>();
+                cities.Add(new City { Name = "Medellín" });
+                cities.Add(new City { Name = "Bogotá" });
+                cities.Add(new City { Name = "Calí" });
+
+                this.context.Countries.Add(new Country
+                {
+                    Cities = cities,
+                    Name = "Colombia"
+                });
+
+                await this.context.SaveChangesAsync();
+            }
+
+            // Add user
             var user = await this.userHelper.GetUserByEmailAsync("barrera_emilio@hotmail.com");
-
             if (user == null)
             {
-                user = new User()
+                user = new User
                 {
                     FirstName = "Emilio",
                     LastName = "Barrera",
                     Email = "barrera_emilio@hotmail.com",
                     UserName = "barrera_emilio@hotmail.com",
-                    PhoneNumber = "+44907951284",
+                    PhoneNumber = "7907951284",
+                    Address = "Calle londres 55",
+                    CityId = this.context.Countries.FirstOrDefault().Cities.FirstOrDefault().Id,
+                    City = this.context.Countries.FirstOrDefault().Cities.FirstOrDefault()
 
                 };
 
-                var result = await this.userHelper.AddUserAsycncAsync(user, "Eabs123.");
-
+                var result = await this.userHelper.AddUserAsync(user, "Eabs123.");
                 if (result != IdentityResult.Success)
                 {
-                    throw new InvalidOperationException("Could not create the user in seeder.");
+                    throw new InvalidOperationException("Could not create the user in seeder");
                 }
 
-                //aqui addionono el role al los usuarios:
-                await userHelper.AddUserToRoleAsync(user, "Admin");
+                await this.userHelper.AddUserToRoleAsync(user, "Admin");
             }
 
-            //aqui le adiciono e role cuando el usuarios ya esta creado:
-            var isInRole = await userHelper.IsUserInRoleAsync(user, "Admin");
+            var isInRole = await this.userHelper.IsUserInRoleAsync(user, "Admin");
             if (!isInRole)
             {
-                await userHelper.AddUserToRoleAsync(user,"Admin");
+                await this.userHelper.AddUserToRoleAsync(user, "Admin");
             }
 
-            if (!this.contex.Products.Any())
-            {
-                this.AddProduct("iPhone x", user);
-                this.AddProduct("Magic Mouse", user);
-                this.AddProduct("IWatch series 4", user);
 
-                await contex.SaveChangesAsync();
+            // Add products
+            if (!this.context.Products.Any())
+            {
+                this.AddProduct("iPhone X", user);
+                this.AddProduct("Magic Mouse", user);
+                this.AddProduct("iWatch Series 4", user);
+                await this.context.SaveChangesAsync();
             }
         }
 
         private void AddProduct(string name, User user)
         {
-            contex.Products.Add(new Product()
+            this.context.Products.Add(new Product
             {
                 Name = name,
-                Price = random.Next(100),
+                Price = this.random.Next(1000),
                 IsAvailable = true,
-                Stock = random.Next(100),
-                User = user,
-
+                Stock = this.random.Next(100),
+                User = user
             });
-        } 
-        #endregion
+        }
     }
 }

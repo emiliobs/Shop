@@ -64,7 +64,7 @@
 
         public async Task<ActionResult> Logout()
         {
-            await userHelper.LogoutAsyc();
+            await userHelper.LogoutAsync();
             return RedirectToAction("Index", "Home");
         }
 
@@ -91,7 +91,7 @@
                     };
 
                     //aqui creao wel usuario:
-                    var result = await userHelper.AddUserAsycncAsync(user, model.Password);
+                    var result = await userHelper.AddUserAsync(user, model.Password);
                     if (result != IdentityResult.Success)
                     {
                         ModelState.AddModelError(string.Empty, "The user couldn't be created.");
@@ -151,7 +151,7 @@
                 {
                     user.FirstName = model.FirstName;
                     user.LastName = model.LastName;
-                    var response = await userHelper.UpdateUserAsyc(user);
+                    var response = await userHelper.UpdateUserAsync(user);
                     if (response.Succeeded)
                     {
                         ViewBag.UserMessage = "User Update!";
@@ -185,7 +185,7 @@
                 var user = await userHelper.GetUserByEmailAsync(User.Identity.Name);
                 if (user != null)
                 {
-                    var result = await userHelper.ChangedPasswordAsync(user, model.OldPassword, model.NewPassword);
+                    var result = await userHelper.ChangePasswordAsync(user, model.OldPassword, model.NewPassword);
                     if (result.Succeeded)
                     {
                         return RedirectToAction("ChangeUser");

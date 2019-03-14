@@ -23,10 +23,13 @@
 
         [DataType(DataType.Date)]
         [Display(Name = "Last Purchase")]
+        //[DisplayFormat(DataFormatString = "{0:yyyy/MM/dd hh:mm tt}", ApplyFormatInEditMode = true)]
+
         public DateTime? LastPurchase { get; set; }
 
         [Display(Name = "Last Sale")]
         [DataType(DataType.Date)]
+        //[DisplayFormat(DataFormatString = "{0:yyyy/MM/dd hh:mm tt}", ApplyFormatInEditMode = true)]    
         public DateTime? LastSale { get; set; }
 
         [Display(Name = "Is Available?")]

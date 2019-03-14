@@ -1,26 +1,27 @@
 ﻿namespace ShopWeb.Helpers
 {
-    using Microsoft.AspNetCore.Identity;
-    using ShopWeb.Data.Entities;
-    using ShopWeb.Models;
     using System.Threading.Tasks;
+    using Data.Entities;
+    using Microsoft.AspNetCore.Identity;
+    using Models;
+
     public interface IUserHelper
     {
         Task<User> GetUserByEmailAsync(string email);
 
-        Task<IdentityResult> AddUserAsycncAsync(User user, string password);
+        Task<IdentityResult> AddUserAsync(User user, string password);
 
         Task<SignInResult> LoginAsync(LoginViewModel model);
 
-        Task LogoutAsyc();
+        Task LogoutAsync();
 
-        Task<IdentityResult> UpdateUserAsyc(User user);
+        Task<IdentityResult> UpdateUserAsync(User user);
 
-        Task<IdentityResult> ChangedPasswordAsync(User user, string oldPassword, string newPassword );
+        Task<IdentityResult> ChangePasswordAsync(User user, string oldPassword, string newPassword);
 
         Task<SignInResult> ValidatePasswordAsync(User user, string password);
 
-        Task CheckRoleAsync(string roleName);                                   
+        Task CheckRoleAsync(string roleName);
 
         Task AddUserToRoleAsync(User user, string roleName);
 
