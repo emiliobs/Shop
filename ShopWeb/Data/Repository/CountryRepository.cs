@@ -1,8 +1,10 @@
 ﻿namespace ShopWeb.Data
 {
+    using Microsoft.AspNetCore.Mvc.Rendering;
     using Microsoft.EntityFrameworkCore;
     using ShopWeb.Data.Entities;
     using ShopWeb.Models;
+    using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
     public class CountryRepository : GenericRepository<Country>, ICountryRepository
@@ -73,5 +75,51 @@
             return await this.context.Cities.FindAsync(id);
         }
 
+        public IEnumerable<SelectListItem> GetComboCountries()
+        {
+            var list = this.context.Countries.Select(c => new SelectListItem
+            {
+               Text = c.Name,
+               Value = c.Id.ToString(),
+
+            }).OrderBy(l => l.Text).ToList();
+
+            list.Insert(0, new SelectListItem
+            {
+                Text = "(Select a Country.....)",
+                Value = "0",
+            });
+
+            return list;
+        }
+        public IEnumerable<SelectListItem> GetComboCities(int countryId)
+        {
+            var country = this.context.Countries.Find(countryId);
+            var list = new List<SelectListItem>();
+            if (country != null)
+            {
+                list = country.Cities.Select(c => new SelectListItem
+                {
+                   Text = c.Name,
+                   Value = c.Id.ToString(),
+                }).OrderBy(l => l.Text).ToList();
+            }
+
+            list.Insert(0, new SelectListItem
+            {
+                Text = "(Select a City.....)",
+                Value = "0",
+            });
+
+            return list;
+        }
+
+
+        public async Task<Country> GetCountryAsync(City city) => await this.context.Countries
+                                                                           .Where(c => c.Cities
+                                                                           .Any(ci => ci.Id.Equals(city.Id)))
+                                                                           .FirstOrDefaultAsync();
+       
+        
     }
 }

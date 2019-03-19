@@ -4,6 +4,7 @@
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.Extensions.Configuration;
     using Microsoft.IdentityModel.Tokens;
+    using ShopWeb.Data;
     using ShopWeb.Data.Entities;
     using ShopWeb.Helpers;
     using ShopWeb.Models;
@@ -18,13 +19,16 @@
 
         #region Attributes
         private readonly IUserHelper userHelper;
+        private readonly ICountryRepository countryRepository;
         private readonly IConfiguration configuration;
         #endregion
 
         #region Constructor
-        public AccountController(IUserHelper userHelper, IConfiguration configuration)
+        public AccountController(IUserHelper userHelper,ICountryRepository countryRepository, 
+                                 IConfiguration configuration)
         {
             this.userHelper = userHelper;
+            this.countryRepository = countryRepository;
             this.configuration = configuration;
         }
         #endregion
@@ -70,7 +74,14 @@
 
         public ActionResult Register()
         {
-            return View();
+
+            var model = new RegisterNewUserViewModel()
+            {
+               Countries = this.countryRepository.GetComboCountries(),
+               Cities = this.countryRepository.GetComboCities(0),
+            };
+
+            return View(model);
         }
 
         [HttpPost]
@@ -82,12 +93,19 @@
 
                 if (user == null)
                 {
+                    //aqui busco la ciudad
+                    var city = await this.countryRepository.GetCityAsync(model.CityId);
+
                     user = new User()
                     {
                         FirstName = model.FirstName,
                         LastName = model.LastName,
                         Email = model.Username,
                         UserName = model.Username,
+                        Address = model.Address,
+                        PhoneNumber = model.PhoneNumber,
+                        CityId = model.CityId,
+                        City = city,
                     };
 
                     //aqui creao wel usuario:
