@@ -52,10 +52,13 @@ namespace ShopWeb
             services.AddScoped<ICountryRepository, CountryRepository>();
             services.AddScoped<IUserHelper, UserHelper>();
             services.AddScoped<IOrderRepository, OrderRepository>();
+            services.AddScoped<IEmailHelper, MailHelper>();
 
             //configuracion del identitypara los usuaarios:
             services.AddIdentity<User, IdentityRole>(options =>
             {
+                options.Tokens.AuthenticatorTokenProvider = TokenOptions.DefaultAuthenticatorProvider;
+                options.SignIn.RequireConfirmedEmail = true;
                 options.User.RequireUniqueEmail = true;
                 options.Password.RequireDigit = false;
                 options.Password.RequiredUniqueChars = 0;
@@ -63,7 +66,8 @@ namespace ShopWeb
                 options.Password.RequireNonAlphanumeric = false;
                 options.Password.RequireUppercase = false;
                 options.Password.RequiredLength = 6;
-            }).AddEntityFrameworkStores<DataContext>();
+            }).AddDefaultTokenProviders()
+              .AddEntityFrameworkStores<DataContext>();
 
             services.AddAuthentication().AddCookie().AddJwtBearer(cfg =>
       {

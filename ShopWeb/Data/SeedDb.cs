@@ -68,6 +68,9 @@
                 }
 
                 await this.userHelper.AddUserToRoleAsync(user, "Admin");
+                //aqui le hago trampa al sistema co la generacion del token y lo confirmo al mismo tiempo:
+                var token = await this.userHelper.GenerateEmailConfirmationTokenAsync(user);
+                await this.userHelper.ConfirmEmailAsync(user, token);
             }
 
             var isInRole = await this.userHelper.IsUserInRoleAsync(user, "Admin");
