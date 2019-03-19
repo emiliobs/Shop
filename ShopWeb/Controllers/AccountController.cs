@@ -153,8 +153,30 @@
             {
                 model.FirstName = user.FirstName;
                 model.LastName = user.LastName;
+                model.Address = user.Address;
+                model.PhoneNumber = user.PhoneNumber;
+
+                //aqui busco la ciudad para saber de que pais es:
+                var city = await this.countryRepository.GetCityAsync(user.CityId);
+                if (city != null)
+                {
+                    //aqui busco el pais de la ciudades:
+                    var country = await this.countryRepository.GetCountryAsync(city);
+                    if (country != null)
+                    {
+                        model.CountryId = country.Id;     
+                        //aqui llenos las listas:
+                        model.Cities = this.countryRepository.GetComboCities(country.Id);
+                        model.Countries = this.countryRepository.GetComboCountries();
+                        model.CityId = user.CityId;
+                    }
+                }
 
             }
+
+            //aqui llenos las listas:
+            model.Cities = this.countryRepository.GetComboCities(model.CountryId);
+            model.Countries = this.countryRepository.GetComboCountries();
 
             return View(model);
         }
@@ -165,10 +187,19 @@
             if (ModelState.IsValid)
             {
                 var user = await userHelper.GetUserByEmailAsync(User.Identity.Name);
+
                 if (user != null)
                 {
+
+                    var city = await this.countryRepository.GetCityAsync(model.CityId);
+
                     user.FirstName = model.FirstName;
                     user.LastName = model.LastName;
+                    user.Address = model.Address;
+                    user.PhoneNumber = model.PhoneNumber;
+                    user.CityId = model.CityId;
+                    user.CityId = city.Id;
+
                     var response = await userHelper.UpdateUserAsync(user);
                     if (response.Succeeded)
                     {
