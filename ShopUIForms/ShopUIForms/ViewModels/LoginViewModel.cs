@@ -51,7 +51,7 @@
             }
 
 
-            if (!Email.Equals("emilio@gmail.com") || !Password.Equals("Emilio123."))
+            if (!Email.Equals("barrera_emilio@yahoo.es") || !Password.Equals("Eabs123."))
             {
 
                 await Application.Current.MainPage.DisplayAlert("Error", "User or Password wrong", "Accept");
