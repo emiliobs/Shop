@@ -38,11 +38,6 @@
 
 
   <ItemGroup>
-    <Folder Include="wwwroot\images\Products\" />
-  </ItemGroup>
-
-
-  <ItemGroup>
     <None Include="wwwroot\node_modules\bootstrap-datepicker\build\build.less" />
     <None Include="wwwroot\node_modules\bootstrap-datepicker\build\build3.less" />
     <None Include="wwwroot\node_modules\bootstrap-datepicker\build\build_standalone.less" />
