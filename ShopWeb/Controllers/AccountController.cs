@@ -1,5 +1,6 @@
 ﻿namespace ShopWeb.Controllers
 {
+    using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.Extensions.Configuration;
@@ -25,7 +26,7 @@
         #endregion
 
         #region Constructor
-        public AccountController(IUserHelper userHelper,ICountryRepository countryRepository, 
+        public AccountController(IUserHelper userHelper, ICountryRepository countryRepository,
                                  IConfiguration configuration, IEmailHelper emailHelper)
         {
             this.userHelper = userHelper;
@@ -79,8 +80,8 @@
 
             var model = new RegisterNewUserViewModel()
             {
-               Countries = this.countryRepository.GetComboCountries(),
-               Cities = this.countryRepository.GetComboCities(0),
+                Countries = this.countryRepository.GetComboCountries(),
+                Cities = this.countryRepository.GetComboCities(0),
             };
 
             return View(model);
@@ -156,7 +157,7 @@
                     var country = await this.countryRepository.GetCountryAsync(city);
                     if (country != null)
                     {
-                        model.CountryId = country.Id;     
+                        model.CountryId = country.Id;
                         //aqui llenos las listas:
                         model.Cities = this.countryRepository.GetComboCities(country.Id);
                         model.Countries = this.countryRepository.GetComboCountries();
@@ -285,7 +286,7 @@
             return BadRequest();
         }
 
-        
+
         public IActionResult NotAuthorized()
         {
             return View();
@@ -318,7 +319,7 @@
             }
 
             return View();
-        }               
+        }
 
         public IActionResult RecoverPassword()
         {
@@ -367,7 +368,7 @@
             var user = await this.userHelper.GetUserByEmailAsync(model.UserName);
             if (user != null)
             {
-                var result = await this.userHelper.ResetPasswordAsync(user,model.Token,model.Password);
+                var result = await this.userHelper.ResetPasswordAsync(user, model.Token, model.Password);
                 if (result.Succeeded)
                 {
                     this.ViewBag.Message = "Password reset successful.";
@@ -380,6 +381,76 @@
 
             this.ViewBag.Message = "User not found.";
             return View(model);
+        }
+
+        [Authorize(Roles = "Admin")]
+
+        public async Task<IActionResult> Index()
+        {
+            var users = await this.userHelper.GetAllUsersAsync();
+            foreach (var user in users)
+            {
+                var myUser = await this.userHelper.GetUserByIdAsync(user.Id);
+                if (myUser != null)
+                {
+                    user.IsAdmin = await this.userHelper.IsUserInRoleAsync(myUser, "Admin");
+                }
+            }
+
+            return this.View(users);
+        }
+
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> AdminOff(string id)
+        {
+            if (string.IsNullOrEmpty(id))
+            {
+                return NotFound();
+            }
+
+            var user = await this.userHelper.GetUserByIdAsync(id);
+            if (user == null)
+            {
+                return NotFound();
+            }
+
+            await this.userHelper.RemoveUserFromRoleAsync(user, "Admin");
+            return this.RedirectToAction(nameof(Index));
+        }
+
+        public async Task<IActionResult> AdminOn(string id)
+        {
+            if (string.IsNullOrEmpty(id))
+            {
+                return NotFound();
+            }
+
+            var user = await this.userHelper.GetUserByIdAsync(id);
+            if (user == null)
+            {
+                return NotFound();
+            }
+
+            await this.userHelper.AddUserToRoleAsync(user, "Admin");
+            return this.RedirectToAction(nameof(Index));
+        }
+
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> DeleteUser(string id)
+        {
+            if (string.IsNullOrEmpty(id))
+            {
+                return NotFound();
+            }
+
+            var user = await this.userHelper.GetUserByIdAsync(id);
+            if (user == null)
+            {
+                return NotFound();
+            }
+
+            await this.userHelper.DeleteUserAsync(user);
+            return this.RedirectToAction(nameof(Index));
         }
 
 

@@ -1,5 +1,6 @@
 ﻿namespace ShopWeb.Helpers
 {
+    using System.Collections.Generic;
     using System.Threading.Tasks;
     using Data.Entities;
     using Microsoft.AspNetCore.Identity;
@@ -36,6 +37,13 @@
         Task<string> GeneratePasswordResetTokenAsync(User user);
 
         Task<IdentityResult> ResetPasswordAsync(User user, string token, string password);
+
+        Task<List<User>> GetAllUsersAsync();
+
+        Task RemoveUserFromRoleAsync(User user, string roleName);
+
+        Task DeleteUserAsync(User user);
+
 
 
     }
