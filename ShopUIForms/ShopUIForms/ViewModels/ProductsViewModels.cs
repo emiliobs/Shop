@@ -61,7 +61,14 @@
         {
             IsRefreshing = true;
 
-            Response response = await this.apiService.GetListAsync<Product>("https://shopzulu.azurewebsites.net", "/api/", "Products");
+            //aqui me consumo la api:
+            var UrlApi = Application.Current.Resources["UrlApi"].ToString();
+            var UrlApiProducts = Application.Current.Resources["UrlApiProducts"].ToString();
+            var Urlproducts = Application.Current.Resources["Urlproducts"].ToString();
+            var bearer = Application.Current.Resources["bearer "].ToString();
+
+            Response response = await this.apiService.GetListAsync<Product>(UrlApi, UrlApiProducts, Urlproducts, bearer,
+                                                                            MainViewModel.GetInstance().Token.Token);
 
             IsRefreshing = false;
 

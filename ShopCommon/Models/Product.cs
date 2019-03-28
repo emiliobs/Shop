@@ -19,10 +19,10 @@
         public string ImageUrl { get; set; }
 
         [JsonProperty("lastPurchase")]
-        public DateTimeOffset LastPurchase { get; set; }
+        public DateTime? LastPurchase { get; set; }
 
         [JsonProperty("lastSale")]
-        public DateTimeOffset LastSale { get; set; }
+        public DateTime? LastSale { get; set; }
 
         [JsonProperty("isAvailable")]
         public bool IsAvailable { get; set; }
