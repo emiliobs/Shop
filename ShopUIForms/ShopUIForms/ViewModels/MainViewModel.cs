@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ShopCommon.Models;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -12,6 +13,7 @@ namespace ShopUIForms.ViewModels
         #endregion
 
         #region Properties
+        public TokenResponse Token { get; set; }
         public LoginViewModel Login { get; set; }
         public ProductsViewModels Products { get; set; }
         #endregion

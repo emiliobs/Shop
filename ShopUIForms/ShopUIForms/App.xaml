@@ -7,6 +7,11 @@
         <ResourceDictionary>
          <!--Locator-->
             <infra:InstanceLocator x:Key="Locator"></infra:InstanceLocator>
+            
+            <!--Paremeters-->
+            <x:String x:Key="UrlApi">https://shopzulu.azurewebsites.net</x:String>
+            <x:String x:Key="UrlApiAccount">/Account</x:String>
+            <x:String x:Key="UrlApiCreateToken">/CreateToken</x:String>
         </ResourceDictionary>
     </Application.Resources>
 </Application>
