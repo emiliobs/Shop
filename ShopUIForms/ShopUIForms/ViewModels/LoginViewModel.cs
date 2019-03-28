@@ -138,8 +138,12 @@
             mainViewModel.Token = token;
             //Aqui intacion con el singleto del main  viewmodel:
             mainViewModel.Products = new ProductsViewModels();
+
             //aqui navego a la pagina de products y veo la llista de los mismos:
-            await Application.Current.MainPage.Navigation.PushAsync(new ProductsPage());      
+            //await Application.Current.MainPage.Navigation.PushAsync(new ProductsPage());      
+
+            //despues del login arranca por el masterdetailpage
+            Application.Current.MainPage = new MasterPage();
 
         }
 

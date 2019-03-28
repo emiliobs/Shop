@@ -9,6 +9,10 @@ namespace ShopUIForms
 {
     public partial class App : Application
     {
+        #region Properties
+        public static INavigation Navigator { get; internal set; } 
+        #endregion
+
         public App()
         {
             InitializeComponent();
