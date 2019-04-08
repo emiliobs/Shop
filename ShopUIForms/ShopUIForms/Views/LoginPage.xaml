@@ -8,6 +8,8 @@
         
         <ScrollView BindingContext="{Binding Login}">
             <StackLayout Padding="8">
+
+                <Image HeightRequest="150" Source="shop"></Image>
                 
                 <Label
                     Text="Email:">                    
@@ -25,10 +27,14 @@
                     Placeholder="Enter your Password....."
                     Text="{Binding Password}">
                 </Entry>
-                <ActivityIndicator IsRunning="{Binding IsRunning}"></ActivityIndicator>
+                <ActivityIndicator IsRunning="{Binding IsRunning}" VerticalOptions="CenterAndExpand"></ActivityIndicator>
                 <Button
+                    BackgroundColor="Navy"
+                    BorderRadius="23"
+                    HeightRequest="46"
                     Command="{Binding LoginCommand}"
                     IsEnabled="{Binding IsEnabled}"
+                    TextColor="White"
                     Text="Login">                    
                 </Button>
             </StackLayout>

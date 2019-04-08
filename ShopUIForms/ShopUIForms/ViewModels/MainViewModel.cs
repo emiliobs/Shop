@@ -1,7 +1,7 @@
 ﻿using ShopCommon.Models;
-using System;
 using System.Collections.Generic;
-using System.Text;
+using System.Collections.ObjectModel;
+using System.Linq;
 
 namespace ShopUIForms.ViewModels
 {
@@ -13,6 +13,8 @@ namespace ShopUIForms.ViewModels
         #endregion
 
         #region Properties
+
+        public ObservableCollection<MenuItemViewModel> Menus { get; set; }
         public TokenResponse Token { get; set; }
         public LoginViewModel Login { get; set; }
         public ProductsViewModels Products { get; set; }
@@ -25,7 +27,11 @@ namespace ShopUIForms.ViewModels
             instance = this;
 
             //this.Login = new LoginViewModel();
+
+            this.loadMenus();
         }
+
+
         #endregion
 
         #region Singleton
@@ -49,6 +55,41 @@ namespace ShopUIForms.ViewModels
         #endregion
 
         #region Methods
+        private void loadMenus()
+        {
+            var menus = new List<Menu>
+            {
+                new Menu
+                {
+                    Icon = "ic_info",
+                    PageName = "AboutPage",
+                    Title = "About"
+                },
+
+                new Menu
+                {
+                    Icon = "ic_phonelink_setup",
+                    PageName = "SetupPage",
+                    Title = "Setup"
+                },
+
+                new Menu
+                {
+                    Icon = "ic_exit_to_app.png",
+                    PageName = "LoginPage",
+                    Title = "Close Session"
+                }
+
+
+            };
+
+            this.Menus = new ObservableCollection<MenuItemViewModel>(menus.Select(m => new MenuItemViewModel
+            {
+                Icon = m.Icon,
+                PageName = m.PageName,
+                Title = m.Title,
+              }).ToList());
+        }
 
         #endregion
 

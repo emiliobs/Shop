@@ -13,10 +13,11 @@
 
         protected override void OnAppearing()
         {
-
-            App.Navigator = this.Navigation;
-
             base.OnAppearing();
+
+            App.Navigator = this.Navigator;
+            App.Master = this;
+
         }
     }
 }
