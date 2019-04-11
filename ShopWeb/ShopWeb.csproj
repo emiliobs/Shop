@@ -609,6 +609,7 @@
 
 
   <ItemGroup>
+    <ProjectReference Include="..\ShopCommon\ShopCommon.csproj" />
     <ProjectReference Include="..\ShopUIForms\ShopUIForms\ShopUIForms.csproj" />
   </ItemGroup>
 

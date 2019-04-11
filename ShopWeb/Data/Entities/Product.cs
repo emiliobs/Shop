@@ -53,5 +53,7 @@
                 //return $"https://shopzulu.azurewebsites.net{this.ImageUrl.Substring(1)}";
             }  
         }
+
+        
     }
 }
