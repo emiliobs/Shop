@@ -1,7 +1,11 @@
-﻿using ShopCommon.Models;
+﻿using GalaSoft.MvvmLight.Command;
+using ShopCommon.Models;
+using ShopUIForms.Views;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Windows.Input;
 
 namespace ShopUIForms.ViewModels
 {
@@ -18,6 +22,7 @@ namespace ShopUIForms.ViewModels
         public TokenResponse Token { get; set; }
         public LoginViewModel Login { get; set; }
         public ProductsViewModels Products { get; set; }
+        public AddProductViewModel  AddProduct { get; set; }
         #endregion
 
         #region Contructor
@@ -52,6 +57,9 @@ namespace ShopUIForms.ViewModels
 
         #region Commands
 
+        public ICommand AddProductCommand { get => new RelayCommand(this.GoAddProduct); }
+
+        
         #endregion
 
         #region Methods
@@ -90,6 +98,13 @@ namespace ShopUIForms.ViewModels
                 Title = m.Title,
               }).ToList());
         }
+
+        private async void GoAddProduct()
+        {
+            this.AddProduct = new AddProductViewModel();
+            await App.Navigator.PushAsync(new  AddProductPage());
+        }
+
 
         #endregion
 
