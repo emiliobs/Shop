@@ -2,9 +2,8 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="ShopUIForms.Views.ProductsPage"
-             BindingContext="{Binding Main, Source={StaticResource Locator}}"
-             Title="Products">
-
+            BindingContext="{Binding Main, Source={StaticResource Locator}}"
+             Title="Products">  
     <ContentPage.ToolbarItems>
         <ToolbarItem Icon="ic_action_add_circle" Command="{Binding AddProductCommand}"></ToolbarItem>
     </ContentPage.ToolbarItems>
@@ -19,36 +18,41 @@
                     <DataTemplate>
                         <ViewCell>
                             <Grid>
+                                <Grid.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding SelectProductCommand}"/>
+                                </Grid.GestureRecognizers>
                                 <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="Auto"></ColumnDefinition>
-                                    <ColumnDefinition Width="*"></ColumnDefinition>
-                                    <ColumnDefinition></ColumnDefinition>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="Auto"/>
                                 </Grid.ColumnDefinitions>
-
-                                <Image 
+                                <Image
                                     Grid.Column="0"
                                     Source="{Binding ImageFullPath}"
-                                    WidthRequest="100">                                    
+                                    WidthRequest="100">
                                 </Image>
                                 <StackLayout
                                     Grid.Column="1"
                                     VerticalOptions="Center">
                                     <Label
                                         FontAttributes="Bold"
-                                        FontFamily="Medium"
+                                        FontSize="Medium"
                                         Text="{Binding Name}"
-                                        TextColor="Black">                                        
+                                        TextColor="Black">
                                     </Label>
                                     <Label
-                                        Text="{Binding Price, StringFormat= 'Price: {0:C2}' }"
-                                        TextColor="Red">
+                                        Text="{Binding Price, StringFormat='Price: {0:C2}'}"
+                                        TextColor="Navy">
                                     </Label>
                                     <Label
-                                        Text="{Binding Stock, StringFormat= 'Stock: {0:N2}' }"
+                                        Text="{Binding Stock, StringFormat='Stock: {0:N2}'}"
                                         TextColor="Black">
                                     </Label>
                                 </StackLayout>
-                                
+                                <Image
+                                    Grid.Column="2"
+                                    Source="ic_chevron_right">
+                                </Image>
                             </Grid>
                         </ViewCell>
                     </DataTemplate>

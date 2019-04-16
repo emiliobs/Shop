@@ -2,6 +2,7 @@
 {
     using ShopCommon.Models;
     using ShopCommon.Services;
+    using System;
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
     using System.Linq;
@@ -12,12 +13,13 @@
         #region Atributtes
 
         private readonly ApiService apiService;
-        private ObservableCollection<Product> productsList;
+        private ObservableCollection<ProductItemViewModel> productsList;
         private bool isRefreshing;
+        private List<Product> myProductsList;
         #endregion
 
         #region Properties
-        public ObservableCollection<Product> ProductsList
+        public ObservableCollection<ProductItemViewModel> ProductsList
         {
             get => productsList;
             set
@@ -82,10 +84,58 @@
 
 
             //aqui casteo por result del api es un object:
-            List<Product> myProducts = (List<Product>)response.Result;
+           this.myProductsList = (List<Product>)response.Result;   
+            this.RefresProductsList();
 
             //aqui utilizo el obserbvavlecollectionn
-            this.ProductsList = new ObservableCollection<Product>(myProducts.OrderBy(p => p.Name));
+            //this.ProductsList = new ObservableCollection<ProductItemViewModel>(myProducts.OrderBy(p => p.Name));
+        }
+
+        public void AddProductToList(Product product)
+        {
+            this.myProductsList.Add(product);
+            this.RefresProductsList();
+        }
+
+        public void UpdateProductInList(Product product)
+        {
+            var previousProduct = this.myProductsList.Where(p => p.Id.Equals(product.Id)).FirstOrDefault();
+            if (previousProduct != null)
+            {
+                this.myProductsList.Remove(previousProduct);
+            }
+
+            this.myProductsList.Add(product);
+            this.RefresProductsList();
+        }
+
+        public void DeleteProductInList(int productId)
+        {
+            var previousProduct = this.myProductsList.Where(p => p.Id.Equals(productId)).FirstOrDefault();
+            if (previousProduct != null)
+            {
+                this.myProductsList.Remove(previousProduct);
+            }
+
+            this.RefresProductsList();
+        }
+
+        private void RefresProductsList()
+        {
+            this.ProductsList = new ObservableCollection<ProductItemViewModel>(this.myProductsList.Select(p => new ProductItemViewModel
+            {
+                Id = p.Id,
+                ImageUrl = p.ImageUrl,
+                ImageFullPath = p.ImageFullPath,
+                IsAvailable = p.IsAvailable,
+                LastPurchase = p.LastPurchase,
+                LastSale = p.LastSale,
+                Name = p.Name,
+                Price = p.Price,
+                Stock = p.Stock,
+                User = p.User
+
+            }).OrderBy(p => p.Name).ToList());
         }
 
 

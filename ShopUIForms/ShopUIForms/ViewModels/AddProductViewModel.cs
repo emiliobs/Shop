@@ -120,7 +120,7 @@
 
             //aqui coonvierto lo que vega a product
             var newProduct = (Product)response.Result;
-            MainViewModel.GetInstance().Products.ProductsList.Add(newProduct);
+            MainViewModel.GetInstance().Products.AddProductToList(newProduct);
 
             this.IsRunning = false;
             this.IsEnabled = true;
