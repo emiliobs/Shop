@@ -131,9 +131,11 @@
             }
 
             //aqui deserializo el token
-            var token = (TokenResponse)response.Result;
-
+            var token = (TokenResponse)response.Result;   
             var mainViewModel = MainViewModel.GetInstance();
+            //aqui guardo el password y el usuario en memoria
+            mainViewModel.UserEmail = this.Email;
+            mainViewModel.UserPassword = this.Password;
             //aqui guaro el toen en memoria:
             mainViewModel.Token = token;
             //Aqui intacion con el singleto del main  viewmodel:

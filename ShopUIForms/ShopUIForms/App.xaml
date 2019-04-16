@@ -15,7 +15,7 @@
             
            <!--Urlproducts-->
             <x:String x:Key="UrlApiProducts">/api</x:String>
-            <x:String x:Key="Urlproducts">/products</x:String>
+            <x:String x:Key="UrlproductsController">/products</x:String>
             <x:String x:Key="bearer ">bearer</x:String>
 
         </ResourceDictionary>

@@ -4,6 +4,7 @@
     using ShopCommon.Services;
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
+    using System.Linq;
     using Xamarin.Forms;
 
     public class ProductsViewModels : BaseViewModels
@@ -64,10 +65,10 @@
             //aqui me consumo la api:
             var UrlApi = Application.Current.Resources["UrlApi"].ToString();
             var UrlApiProducts = Application.Current.Resources["UrlApiProducts"].ToString();
-            var Urlproducts = Application.Current.Resources["Urlproducts"].ToString();
+            var UrlproductsController = Application.Current.Resources["UrlproductsController"].ToString();
             var bearer = Application.Current.Resources["bearer "].ToString();
 
-            Response response = await this.apiService.GetListAsync<Product>(UrlApi, UrlApiProducts, Urlproducts, bearer,
+            Response response = await this.apiService.GetListAsync<Product>(UrlApi, UrlApiProducts, UrlproductsController, bearer,
                                                                             MainViewModel.GetInstance().Token.Token);
 
             IsRefreshing = false;
@@ -84,7 +85,7 @@
             List<Product> myProducts = (List<Product>)response.Result;
 
             //aqui utilizo el obserbvavlecollectionn
-            this.ProductsList = new ObservableCollection<Product>(myProducts);
+            this.ProductsList = new ObservableCollection<Product>(myProducts.OrderBy(p => p.Name));
         }
 
 

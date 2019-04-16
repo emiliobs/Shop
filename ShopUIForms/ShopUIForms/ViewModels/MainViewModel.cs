@@ -23,6 +23,8 @@ namespace ShopUIForms.ViewModels
         public LoginViewModel Login { get; set; }
         public ProductsViewModels Products { get; set; }
         public AddProductViewModel  AddProduct { get; set; }
+        public string UserEmail { get; set; }
+        public string UserPassword { get; set; }
         #endregion
 
         #region Contructor
