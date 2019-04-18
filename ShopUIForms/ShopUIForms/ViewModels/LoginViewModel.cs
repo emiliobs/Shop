@@ -1,6 +1,8 @@
 ﻿namespace ShopUIForms.ViewModels
 {
     using GalaSoft.MvvmLight.Command;
+    using Newtonsoft.Json;
+    using ShopCommon.Helpers;
     using ShopCommon.Models;
     using ShopCommon.Services;
     using ShopUIForms.Views;
@@ -15,13 +17,25 @@
         private ApiService apiService;
         private bool isRunning;
         private bool isEnabled;
-
+        private bool isRemember;
 
         #endregion
         #region Properties
 
         public string Email { get; set; }
         public string Password { get; set; }
+        public bool IsRemember
+        {
+            get => isRemember;
+            set
+            {
+                if (isRemember != value)
+                {
+                    isRemember = value;
+                    NotifyPropertyChanged();
+                }
+            }
+        }
 
         public bool IsRunning
         {
@@ -59,9 +73,10 @@
 
             //Boton
             this.IsEnabled = true;
+            this.IsRemember = true;
 
-            Email = "angelina@gmail.com";
-            Password = "123456";
+            //Email = "angelina@gmail.com";
+            //Password = "123456";
         }
 
         #endregion
@@ -141,8 +156,16 @@
             //Aqui intacion con el singleto del main  viewmodel:
             mainViewModel.Products = new ProductsViewModels();
 
+
             //aqui navego a la pagina de products y veo la llista de los mismos:
             //await Application.Current.MainPage.Navigation.PushAsync(new ProductsPage());      
+
+            //aqui guaro loa credenciales e persistencia login y password ad token:
+            Settings.IsRemember = this.IsRemember;
+            Settings.UserEmail = this.Email;
+            Settings.UserPassword = this.Password;
+            //aqui converto el token de object a string
+            Settings.Token = JsonConvert.SerializeObject(token);
 
             //despues del login arranca por el masterdetailpage
             Application.Current.MainPage = new MasterPage();
