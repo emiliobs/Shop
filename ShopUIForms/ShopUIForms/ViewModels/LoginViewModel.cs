@@ -5,6 +5,7 @@
     using ShopCommon.Helpers;
     using ShopCommon.Models;
     using ShopCommon.Services;
+    using ShopUIForms.Helpers;
     using ShopUIForms.Views;
     using System.Windows.Input;
     using Xamarin.Forms;
@@ -95,14 +96,14 @@
             if (string.IsNullOrEmpty(Email))
             {
 
-                await Application.Current.MainPage.DisplayAlert("Error","You must enter an Email","Accept");
+                await Application.Current.MainPage.DisplayAlert(Languages.Error,Languages.EmailError,Languages.Accept);
 
                 return;
             }
 
             if (string.IsNullOrEmpty(Password))
             {
-                await Application.Current.MainPage.DisplayAlert("Error", "You must enter an Password", "Accept");
+                await Application.Current.MainPage.DisplayAlert(Languages.Error, Languages.PasswordError, Languages.Accept);
 
                 return;
             }
@@ -141,7 +142,7 @@
 
             if (!response.IsSuccess)
             {
-                await Application.Current.MainPage.DisplayAlert("Error","Email or Password Incorrect", "Accept");
+                await Application.Current.MainPage.DisplayAlert(Languages.Error,Languages.LoginError, Languages.Accept);
                 return;
             }
 

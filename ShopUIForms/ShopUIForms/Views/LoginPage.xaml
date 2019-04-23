@@ -1,9 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:i18n="clr-namespace:ShopUIForms.Helpers"
              x:Class="ShopUIForms.Views.LoginPage"
              BindingContext="{Binding Main, Source={StaticResource Locator}}"
-             Title="Login">
+             Title="{i18n:Translate Login}">
     <ContentPage.Content>
         
         <ScrollView BindingContext="{Binding Login}">
@@ -12,24 +13,24 @@
                 <Image HeightRequest="150" Source="shop"></Image>
                 
                 <Label
-                    Text="Email:">                    
+                    Text="{i18n:Translate Email}">                    
                 </Label>
                 <Entry
                     Keyboard="Email"
-                    Placeholder="Enter your Email....."
+                    Placeholder="{i18n:Translate EnterEmail}"
                     Text="{Binding Email}">
                 </Entry>
                 <Label
-                    Text="Password:">
+                    Text="{i18n:Translate Password}">
                 </Label>
                 <Entry
                     IsPassword="True"
-                    Placeholder="Enter your Password....."
+                    Placeholder="{i18n:Translate EnterPassword}"
                     Text="{Binding Password}">
                 </Entry>
                 <StackLayout HorizontalOptions="Center" Orientation="Horizontal">
                     <Label 
-                        Text="Rememberme in this device." 
+                        Text="{i18n:Translate Rememberme}" 
                         VerticalOptions="Center">                        
                     </Label>
                     <Switch
@@ -44,7 +45,7 @@
                     Command="{Binding LoginCommand}"
                     IsEnabled="{Binding IsEnabled}"
                     TextColor="White"
-                    Text="Login">                    
+                    Text="{i18n:Translate Login}">                    
                 </Button>
             </StackLayout>
         </ScrollView>

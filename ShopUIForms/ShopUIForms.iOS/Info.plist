@@ -34,5 +34,17 @@
     <string>ShopUIForms</string>
     <key>XSAppIconAssets</key>
     <string>Assets.xcassets/AppIcon.appiconset</string>
+
+	<key>CFBundleLocalizations</key>
+<array>
+	<string>es</string>
+	<string>pt</string>
+	<string>it</string>
+	<string>fr</string>
+</array>
+<key>CFBundleDevelopmentRegion</key>
+<string>en</string>
+
+
 </dict>
 </plist>
