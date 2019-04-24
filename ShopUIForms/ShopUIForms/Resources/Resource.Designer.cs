@@ -70,6 +70,15 @@ namespace ShopUIForms.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Cancel..
+        /// </summary>
+        public static string Cancel {
+            get {
+                return ResourceManager.GetString("Cancel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Email:.
         /// </summary>
         public static string Email {
@@ -115,6 +124,24 @@ namespace ShopUIForms.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to From Camera..
+        /// </summary>
+        public static string FromCamera {
+            get {
+                return ResourceManager.GetString("FromCamera", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to From Gallery..
+        /// </summary>
+        public static string FromGallery {
+            get {
+                return ResourceManager.GetString("FromGallery", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Login..
         /// </summary>
         public static string Login {
@@ -156,6 +183,15 @@ namespace ShopUIForms.Resources {
         public static string Rememberme {
             get {
                 return ResourceManager.GetString("Rememberme", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Where do you take the pictures?.
+        /// </summary>
+        public static string WhereTakePicture {
+            get {
+                return ResourceManager.GetString("WhereTakePicture", resourceCulture);
             }
         }
     }

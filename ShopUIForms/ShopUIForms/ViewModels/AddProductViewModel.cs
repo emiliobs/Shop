@@ -1,8 +1,11 @@
 ﻿namespace ShopUIForms.ViewModels
 {
     using GalaSoft.MvvmLight.Command;
+    using Plugin.Media;
+    using Plugin.Media.Abstractions;
     using ShopCommon.Models;
     using ShopCommon.Services;
+    using ShopUIForms.Helpers;
     using System;
     using System.Collections.Generic;
     using System.Text;
@@ -15,10 +18,25 @@
         private bool isRunning;
         private bool isEnabled;
         private readonly ApiService apiService;
+        private  ImageSource imageSource;
+        private MediaFile mediaFile;
         #endregion
 
         #region Properties
-        public string Image { get; set; }
+        public ImageSource ImageSource
+        {
+            get => this.imageSource;
+            set
+            {
+                if (this.imageSource != value)
+                {
+                    this.imageSource = value;
+
+                    NotifyPropertyChanged();
+                }
+            }
+        }
+        //public string Image { get; set; }
         public string Name { get; set; }
         public string Price { get; set; }
 
@@ -54,7 +72,8 @@
         public AddProductViewModel()
         {
             this.apiService = new ApiService();
-            this.Image = "noimage";
+            //this.Image = "noimage";
+            this.ImageSource = "noimage";
             this.IsEnabled = true;
         }
         #endregion
@@ -62,10 +81,63 @@
         #region Commands
         public ICommand SaveCommand { get => new RelayCommand(Save); }
 
+        public ICommand ChangeImageCommand { get => new RelayCommand(ChangeImage); }
+
+
 
         #endregion
 
         #region Methods
+
+        private async void ChangeImage()
+        {
+            //Here Initialize the camera
+            await CrossMedia.Current.Initialize();
+
+            var source = await Application.Current.MainPage.DisplayActionSheet(
+                Languages.WhereTakePicture,
+                Languages.Cancel,null,
+                Languages.FromGallery, 
+                Languages.FromCamera);
+
+            if (source == Languages.Cancel)
+            {
+                this.mediaFile = null;
+                return;
+            }
+
+            //Her take the picture:
+            if (source == Languages.FromCamera)
+            {
+                this.mediaFile = await CrossMedia.Current.TakePhotoAsync(
+                    
+                      new StoreCameraMediaOptions
+                      {
+                          Directory = "Pictures",
+                          Name = "test.jpg",
+                          PhotoSize = PhotoSize.Small,
+                      }
+                    
+                    );
+            }
+            else
+            {
+                //here from gallery image:
+                this.mediaFile = await CrossMedia.Current.PickPhotoAsync();
+
+            }
+
+            if (this.mediaFile != null)
+            {
+                this.ImageSource = ImageSource.FromStream(() => 
+                {
+                    var stream = mediaFile.GetStream();
+                    return stream;
+                });
+            }
+        }                          
+
+
         private async void Save()
         {
             if (string.IsNullOrEmpty(this.Name))

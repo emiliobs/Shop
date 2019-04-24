@@ -24,6 +24,10 @@
         public static string EnterEmail => Resource.EnterEmail;
         public static string EnterPassword => Resource.EnterPassword;
         public static string Email => Resource.Email;
+        public static string WhereTakePicture => Resource.WhereTakePicture;
+        public static string Cancel => Resource.Cancel;
+        public static string FromCamera => Resource.FromCamera;
+        public static string FromGallery => Resource.FromGallery;
     }
 
 }

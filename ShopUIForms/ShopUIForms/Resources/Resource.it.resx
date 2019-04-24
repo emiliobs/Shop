@@ -150,4 +150,16 @@
   <data name="Rememberme" xml:space="preserve">
     <value>Rememberme in questo dispositivo.!</value>
   </data>
+  <data name="WhereTakePicture" xml:space="preserve">
+    <value>Dove prendi le foto ?!</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Annulla</value>
+  </data>
+  <data name="FromGallery" xml:space="preserve">
+    <value>Dalla Galleria.!</value>
+  </data>
+  <data name="FromCamera" xml:space="preserve">
+    <value>Da fotocamera</value>
+  </data>
 </root>
