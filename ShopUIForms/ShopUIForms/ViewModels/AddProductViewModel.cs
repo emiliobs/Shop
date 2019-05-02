@@ -3,6 +3,7 @@
     using GalaSoft.MvvmLight.Command;
     using Plugin.Media;
     using Plugin.Media.Abstractions;
+    using ShopCommon.Helpers;
     using ShopCommon.Models;
     using ShopCommon.Services;
     using ShopUIForms.Helpers;
@@ -122,7 +123,7 @@
             }
             else
             {
-                //here from gallery image:
+                //here from gallery image:   
                 this.mediaFile = await CrossMedia.Current.PickPhotoAsync();
 
             }
@@ -162,8 +163,12 @@
             this.IsRunning = true;
             this.IsEnabled = false;
 
-            //TODO: Add Image
-
+            // Add Image
+            byte[] imageArray = null;
+            if (this.mediaFile != null)
+            {
+                imageArray = FileHelper.ReadFully(this.mediaFile.GetStream());
+            }
 
             //aqui envio el objeto al post(
             var product = new Product()
@@ -171,7 +176,8 @@
                 IsAvailable = true,
                 Name = this.Name,
                 Price = price,
-                User = new User (){ UserName = MainViewModel.GetInstance().UserEmail  }
+                User = new User (){ UserName = MainViewModel.GetInstance().UserEmail  },
+                ImageArray = imageArray,
             };
 
             var UrlApi = Application.Current.Resources["UrlApi"].ToString();
