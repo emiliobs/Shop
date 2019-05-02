@@ -28,6 +28,7 @@
         public static string Cancel => Resource.Cancel;
         public static string FromCamera => Resource.FromCamera;
         public static string FromGallery => Resource.FromGallery;
+        public static string RegisterNewUser => Resource.RegisterNewUser;
     }
 
 }

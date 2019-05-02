@@ -162,4 +162,7 @@
   <data name="FromCamera" xml:space="preserve">
     <value>De l'appareil photo</value>
   </data>
+  <data name="RegisterNewUser" xml:space="preserve">
+    <value>Enregistrement nouvel utilisateur</value>
+  </data>
 </root>

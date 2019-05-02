@@ -38,15 +38,34 @@
                     </Switch>
                 </StackLayout>
                 <ActivityIndicator IsRunning="{Binding IsRunning}" VerticalOptions="CenterAndExpand"></ActivityIndicator>
-                <Button
+
+                <StackLayout Orientation="Horizontal">
+                    <Button
                     BackgroundColor="Navy"
                     BorderRadius="23"
                     HeightRequest="46"
+                        HorizontalOptions="FillAndExpand"
                     Command="{Binding LoginCommand}"
                     IsEnabled="{Binding IsEnabled}"
                     TextColor="White"
-                    Text="{i18n:Translate Login}">                    
-                </Button>
+                    Text="{i18n:Translate Login}">
+                    </Button>
+
+
+                    <Button
+                        BackgroundColor="Purple"
+                        BorderRadius="23"
+                        Command="{Binding RegisterCommand}"
+                        HeightRequest="46"
+                        HorizontalOptions="FillAndExpand"
+                        IsEnabled="{Binding IsEnabled}"
+                        Text="{i18n:Translate RegisterNewUser}"
+                        TextColor="White">
+                    </Button>
+                    
+                </StackLayout>
+                
+               
             </StackLayout>
         </ScrollView>
         

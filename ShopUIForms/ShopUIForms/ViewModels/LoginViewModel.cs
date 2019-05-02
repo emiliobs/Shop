@@ -7,6 +7,7 @@
     using ShopCommon.Services;
     using ShopUIForms.Helpers;
     using ShopUIForms.Views;
+    using System;
     using System.Windows.Input;
     using Xamarin.Forms;
 
@@ -85,11 +86,19 @@
         #region Commands
 
         public ICommand LoginCommand { get => new RelayCommand(Login); }
-
+        public ICommand RegisterCommand { get => new RelayCommand(Register); }
 
         #endregion
 
         #region Methods
+
+        private async void Register()
+        {
+          MainViewModel.GetInstance().Register = new RegisterViewModel();
+            await Application.Current.MainPage.Navigation.PushModalAsync(new RegisterPage());
+        }
+
+
 
         private async void Login()
         {
