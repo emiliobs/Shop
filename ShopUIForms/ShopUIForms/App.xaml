@@ -18,6 +18,9 @@
             <x:String x:Key="UrlproductsController">/products</x:String>
             <x:String x:Key="bearer ">bearer</x:String>
 
+            <!--UrlCountries-->
+            <x:String x:Key="CountriesController">/Countries</x:String>
+
         </ResourceDictionary>
     </Application.Resources>
 </Application>
