@@ -165,4 +165,31 @@
   <data name="RegisterNewUser" xml:space="preserve">
     <value>Registar Novo Formando</value>
   </data>
+  <data name="FirstName" xml:space="preserve">
+    <value>Você deve digitar o nome</value>
+  </data>
+  <data name="LatsName" xml:space="preserve">
+    <value>Você deve inserir o sobrenome</value>
+  </data>
+  <data name="ValidEmail" xml:space="preserve">
+    <value>Você deve inserir um endereço de email válido.</value>
+  </data>
+  <data name="SelectCountry" xml:space="preserve">
+    <value>Você deve selecionar um país</value>
+  </data>
+  <data name="SelectCity" xml:space="preserve">
+    <value>Você deve selecionar uma cidade.</value>
+  </data>
+  <data name="EnterPhone" xml:space="preserve">
+    <value>Você deve digitar um número de telefone.</value>
+  </data>
+  <data name="LogitudPassword" xml:space="preserve">
+    <value>Sua senha deve estar no minnimut 6 caracteres.</value>
+  </data>
+  <data name="ConfirmPassword" xml:space="preserve">
+    <value>Tem de introduzir uma palavra-passe</value>
+  </data>
+  <data name="OK" xml:space="preserve">
+    <value>OK</value>
+  </data>
 </root>

@@ -122,7 +122,7 @@
     <value>Email:</value>
   </data>
   <data name="EnterEmail" xml:space="preserve">
-    <value>Enter your Email.</value>
+    <value>You must enter an Email.</value>
   </data>
   <data name="Password" xml:space="preserve">
     <value>Password:</value>
@@ -147,5 +147,32 @@
   </data>
   <data name="RegisterNewUser" xml:space="preserve">
     <value>Register New User.</value>
+  </data>
+  <data name="FirstName" xml:space="preserve">
+    <value>You must enter the First Name.</value>
+  </data>
+  <data name="LatsName" xml:space="preserve">
+    <value>You must enter the Last Name.</value>
+  </data>
+  <data name="ValidEmail" xml:space="preserve">
+    <value>You must enter a valid Email.</value>
+  </data>
+  <data name="SelectCountry" xml:space="preserve">
+    <value>You must select a Country.</value>
+  </data>
+  <data name="SelectCity" xml:space="preserve">
+    <value>You must select a City.</value>
+  </data>
+  <data name="EnterPhone" xml:space="preserve">
+    <value>You must enter a Phone Number.</value>
+  </data>
+  <data name="LogitudPassword" xml:space="preserve">
+    <value>You Password must be at minnimut 6 characters.</value>
+  </data>
+  <data name="ConfirmPassword" xml:space="preserve">
+    <value>You must enter a Password Confirm.</value>
+  </data>
+  <data name="OK" xml:space="preserve">
+    <value>OK</value>
   </data>
 </root>

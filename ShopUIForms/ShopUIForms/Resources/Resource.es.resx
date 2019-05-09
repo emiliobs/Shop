@@ -165,4 +165,31 @@
   <data name="RegisterNewUser" xml:space="preserve">
     <value>Registrar nuevo usuario</value>
   </data>
+  <data name="FirstName" xml:space="preserve">
+    <value>Debe introducir un título para tu página</value>
+  </data>
+  <data name="LatsName" xml:space="preserve">
+    <value>Debe introducir el apellido</value>
+  </data>
+  <data name="ValidEmail" xml:space="preserve">
+    <value>Hay que introducir una dirección de correo válida.</value>
+  </data>
+  <data name="SelectCountry" xml:space="preserve">
+    <value>Debe seleccionar un país.</value>
+  </data>
+  <data name="SelectCity" xml:space="preserve">
+    <value>Debes seleccionar una ciudad.</value>
+  </data>
+  <data name="EnterPhone" xml:space="preserve">
+    <value>Debes poner un número de teléfono</value>
+  </data>
+  <data name="LogitudPassword" xml:space="preserve">
+    <value>Tu contraseña debe estar en minnimut 6 caracteres.!</value>
+  </data>
+  <data name="ConfirmPassword" xml:space="preserve">
+    <value>Debes ingresar una contraseña</value>
+  </data>
+  <data name="OK" xml:space="preserve">
+    <value>Aceptar</value>
+  </data>
 </root>

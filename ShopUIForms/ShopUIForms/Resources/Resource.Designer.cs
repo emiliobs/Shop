@@ -79,6 +79,15 @@ namespace ShopUIForms.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to You must enter a Password Confirm..
+        /// </summary>
+        public static string ConfirmPassword {
+            get {
+                return ResourceManager.GetString("ConfirmPassword", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Email:.
         /// </summary>
         public static string Email {
@@ -97,7 +106,7 @@ namespace ShopUIForms.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Enter your Email..
+        ///   Looks up a localized string similar to You must enter an Email..
         /// </summary>
         public static string EnterEmail {
             get {
@@ -115,11 +124,29 @@ namespace ShopUIForms.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to You must enter a Phone Number..
+        /// </summary>
+        public static string EnterPhone {
+            get {
+                return ResourceManager.GetString("EnterPhone", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Error..
         /// </summary>
         public static string Error {
             get {
                 return ResourceManager.GetString("Error", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You must enter the First Name..
+        /// </summary>
+        public static string FirstName {
+            get {
+                return ResourceManager.GetString("FirstName", resourceCulture);
             }
         }
         
@@ -142,6 +169,15 @@ namespace ShopUIForms.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to You must enter the Last Name..
+        /// </summary>
+        public static string LatsName {
+            get {
+                return ResourceManager.GetString("LatsName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Login..
         /// </summary>
         public static string Login {
@@ -156,6 +192,24 @@ namespace ShopUIForms.Resources {
         public static string LoginError {
             get {
                 return ResourceManager.GetString("LoginError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You Password must be at minnimut 6 characters..
+        /// </summary>
+        public static string LogitudPassword {
+            get {
+                return ResourceManager.GetString("LogitudPassword", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to OK.
+        /// </summary>
+        public static string OK {
+            get {
+                return ResourceManager.GetString("OK", resourceCulture);
             }
         }
         
@@ -192,6 +246,33 @@ namespace ShopUIForms.Resources {
         public static string Rememberme {
             get {
                 return ResourceManager.GetString("Rememberme", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You must select a City..
+        /// </summary>
+        public static string SelectCity {
+            get {
+                return ResourceManager.GetString("SelectCity", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You must select a Country..
+        /// </summary>
+        public static string SelectCountry {
+            get {
+                return ResourceManager.GetString("SelectCountry", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You must enter a valid Email..
+        /// </summary>
+        public static string ValidEmail {
+            get {
+                return ResourceManager.GetString("ValidEmail", resourceCulture);
             }
         }
         

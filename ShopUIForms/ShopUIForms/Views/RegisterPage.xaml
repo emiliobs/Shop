@@ -6,145 +6,145 @@
              Title="Register New User">
     <ContentPage.Content>
         <ScrollView
-        	BindingContext="{Binding Register}">
+            BindingContext="{Binding Register}">
             <StackLayout
-            	Padding="8">
+                Padding="8">
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*"/>
                         <ColumnDefinition Width="2*"/>
                     </Grid.ColumnDefinitions>
                     <Label
-                    	Grid.Column="0"
-                    	Grid.Row="0"
-                    	Text="First name"
-                    	VerticalOptions="Center">
+                        Grid.Column="0"
+                        Grid.Row="0"
+                        Text="First name"
+                        VerticalOptions="Center">
                     </Label>
                     <Entry
-                    	Grid.Column="1"
-                    	Grid.Row="0"
-                    	Placeholder="Enter your first name..."
-                    	Text="{Binding FirstName}">
+                        Grid.Column="1"
+                        Grid.Row="0"
+                        Placeholder="Enter your first name..."
+                        Text="{Binding FirstName}">
                     </Entry>
                     <Label
-                    	Grid.Column="0"
-                    	Grid.Row="1"
-                    	Text="Last name"
-                    	VerticalOptions="Center">
+                        Grid.Column="0"
+                        Grid.Row="1"
+                        Text="Last name"
+                        VerticalOptions="Center">
                     </Label>
                     <Entry
-                    	Grid.Column="1"
-                    	Grid.Row="1"
-                    	Placeholder="Enter your last name..."
-                    	Text="{Binding LastName}">
+                        Grid.Column="1"
+                        Grid.Row="1"
+                        Placeholder="Enter your last name..."
+                        Text="{Binding LastName}">
                     </Entry>
                     <Label
-                    	Grid.Column="0"
-                    	Grid.Row="2"
-                    	Text="Email"
-                    	VerticalOptions="Center">
+                        Grid.Column="0"
+                        Grid.Row="2"
+                        Text="Email"
+                        VerticalOptions="Center">
                     </Label>
                     <Entry
-                    	Grid.Column="1"
-                    	Grid.Row="2"
-                    	Keyboard="Email"
-                    	Placeholder="Enter your email..."
-                    	Text="{Binding Email}">
+                        Grid.Column="1"
+                        Grid.Row="2"
+                        Keyboard="Email"
+                        Placeholder="Enter your email..."
+                        Text="{Binding Email}">
                     </Entry>
                     <Label
-                    	Grid.Column="0"
-                    	Grid.Row="3"
-                    	Text="Country"
-                    	VerticalOptions="Center">
+                        Grid.Column="0"
+                        Grid.Row="3"
+                        Text="Country"
+                        VerticalOptions="Center">
                     </Label>
                     <Picker
-                    	Grid.Column="1"
-                    	Grid.Row="3"
-                    	ItemDisplayBinding="{Binding Name}"
-                    	ItemsSource="{Binding Countries}"
-                    	SelectedItem="{Binding Country}"
-                    	Title="Select a country...">
+                        Grid.Column="1"
+                        Grid.Row="3"
+                        ItemDisplayBinding="{Binding Name}"
+                        ItemsSource="{Binding Countries}"
+                        SelectedItem="{Binding Country}"
+                        Title="Select a country...">
                     </Picker>
                     <Label
-                    	Grid.Column="0"
-                    	Grid.Row="4"
-                    	Text="City"
-                    	VerticalOptions="Center">
+                        Grid.Column="0"
+                        Grid.Row="4"
+                        Text="City"
+                        VerticalOptions="Center">
                     </Label>
                     <Picker
-                    	Grid.Column="1"
-                    	Grid.Row="4"
-                    	ItemDisplayBinding="{Binding Name}"
-                    	ItemsSource="{Binding Cities}"
-                    	SelectedItem="{Binding City}"
-                    	Title="Select a city...">
+                        Grid.Column="1"
+                        Grid.Row="4"
+                        ItemDisplayBinding="{Binding Name}"
+                        ItemsSource="{Binding Cities}"
+                        SelectedItem="{Binding City}"
+                        Title="Select a city...">
                     </Picker>
                     <Label
-                    	Grid.Column="0"
-                    	Grid.Row="5"
-                    	Text="Address"
-                    	VerticalOptions="Center">
+                        Grid.Column="0"
+                        Grid.Row="5"
+                        Text="Address"
+                        VerticalOptions="Center">
                     </Label>
                     <Entry
-                    	Grid.Column="1"
-                    	Grid.Row="5"
-                    	Keyboard="Email"
-                    	Placeholder="Enter your address..."
-                    	Text="{Binding Address}">
+                        Grid.Column="1"
+                        Grid.Row="5"
+                        Keyboard="Email"
+                        Placeholder="Enter your address..."
+                        Text="{Binding Address}">
                     </Entry>
                     <Label
-                    	Grid.Column="0"
-                    	Grid.Row="6"
-                    	Text="Pohone"
-                    	VerticalOptions="Center">
+                        Grid.Column="0"
+                        Grid.Row="6"
+                        Text="Telephone"
+                        VerticalOptions="Center">
                     </Label>
                     <Entry
-                    	Grid.Column="1"
-                    	Grid.Row="6"
-                    	Keyboard="Telephone"
-                    	Placeholder="Enter your phone number..."
-                    	Text="{Binding Phone}">
+                        Grid.Column="1"
+                        Grid.Row="6"
+                        Keyboard="Telephone"
+                        Placeholder="Enter your phone number..."
+                        Text="{Binding Phone}">
                     </Entry>
                     <Label
-                    	Grid.Column="0"
-                    	Grid.Row="7"
-                    	Text="Password"
-                    	VerticalOptions="Center">
+                        Grid.Column="0"
+                        Grid.Row="7"
+                        Text="Password"
+                        VerticalOptions="Center">
                     </Label>
                     <Entry
-                    	Grid.Column="1"
-                    	Grid.Row="7"
-                    	IsPassword="True"
-                    	Placeholder="Enter your password..."
-                    	Text="{Binding Password}">
+                        Grid.Column="1"
+                        Grid.Row="7"
+                        IsPassword="True"
+                        Placeholder="Enter your password..."
+                        Text="{Binding Password}">
                     </Entry>
                     <Label
-                    	Grid.Column="0"
-                    	Grid.Row="8"
-                    	Text="Password confirm"
-                    	VerticalOptions="Center">
+                        Grid.Column="0"
+                        Grid.Row="8"
+                        Text="Password confirm"
+                        VerticalOptions="Center">
                     </Label>
                     <Entry
-                    	Grid.Column="1"
-                    	Grid.Row="8"
-                    	IsPassword="True"
-                    	Placeholder="Enter your password confirm..."
-                    	Text="{Binding Confirm}">
+                        Grid.Column="1"
+                        Grid.Row="8"
+                        IsPassword="True"
+                        Placeholder="Enter your password confirm..."
+                        Text="{Binding Confirm}">
                     </Entry>
                 </Grid>
                 <ActivityIndicator
-                	IsRunning="{Binding IsRunning}"
-                	VerticalOptions="CenterAndExpand">
+                    IsRunning="{Binding IsRunning}"
+                    VerticalOptions="CenterAndExpand">
                 </ActivityIndicator>
                 <Button
-                	BackgroundColor="Navy"
-                	BorderRadius="23"
-                	Command="{Binding RegisterCommand}"
-                	HeightRequest="46"
-                	HorizontalOptions="FillAndExpand"
-                	IsEnabled="{Binding IsEnabled}"
-                	Text="Register New User"
-                	TextColor="White">
+                    BackgroundColor="Navy"
+                    BorderRadius="23"
+                    Command="{Binding RegisterCommand}"
+                    HeightRequest="46"
+                    HorizontalOptions="FillAndExpand"
+                    IsEnabled="{Binding IsEnabled}"
+                    Text="Register New User"
+                    TextColor="White">
                 </Button>
             </StackLayout>
         </ScrollView>

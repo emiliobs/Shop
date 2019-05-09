@@ -29,6 +29,15 @@
         public static string FromCamera => Resource.FromCamera;
         public static string FromGallery => Resource.FromGallery;
         public static string RegisterNewUser => Resource.RegisterNewUser;
+        public static string FirstName => Resource.FirstName;
+        public static string LatsName => Resource.LatsName;
+        public static string ValidEmail => Resource.ValidEmail;
+        public static string SelectCity => Resource.SelectCity;
+        public static string SelectCountry => Resource.SelectCountry;
+        public static string EnterPhone => Resource.EnterPhone;
+        public static string LogitudPassword => Resource.LogitudPassword;
+        public static string ConfirmPassword => Resource.ConfirmPassword;
+        public static string OK => Resource.OK;
     }
 
 }
