@@ -44,7 +44,7 @@ namespace AppAndroid
             apiService = new ApiService();
             this.emailText.Text = "jzuluaga55@gmail.com";
             this.passwordText.Text = "123456";
-            this.activityIndicatorProgressBar.Visibility = ViewStates.Invisible;
+            //this.activityIndicatorProgressBar.Visibility = ViewStates.Invisible;
         }
 
         private void LoginButton_Click(object sender, System.EventArgs e)

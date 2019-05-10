@@ -2,7 +2,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:layout_margin="20dp">
 
      <TextView
         android:text="Email"
@@ -10,8 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:minWidth="25px"
-        android:minHeight="25px"
-    android:layout_margin="10dp"/>
+        android:minHeight="25px"/>
     <EditText
       
         android:inputType="textEmailAddress"
@@ -24,8 +24,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:minWidth="25px"
-        android:minHeight="25px"
-    android:layout_margin="10dp"/>
+        android:minHeight="25px"/>
     <EditText
        
         android:inputType="textPassword"
@@ -33,12 +32,13 @@
         android:layout_height="wrap_content"
         android:id="@+id/passwordText"/>
     <ProgressBar
-        style="?android:attr/progressBarStyleHorizontal"
+        style="?android:attr/progressBarStyleLarge"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/activityIndicatorProgressBarr"
         android:indeterminateOnly="true"
-    android:keepScreenOn="true"/>
+        android:keepScreenOn="true"/>
+   
     <Button
         android:text="Login."
         android:layout_width="match_parent"
