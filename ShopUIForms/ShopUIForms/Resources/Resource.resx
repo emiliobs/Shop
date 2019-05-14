@@ -175,4 +175,7 @@
   <data name="OK" xml:space="preserve">
     <value>OK</value>
   </data>
+  <data name="ForgotPassword" xml:space="preserve">
+    <value>Forgot my Password?</value>
+  </data>
 </root>

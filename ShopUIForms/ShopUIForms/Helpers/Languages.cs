@@ -38,6 +38,7 @@
         public static string LogitudPassword => Resource.LogitudPassword;
         public static string ConfirmPassword => Resource.ConfirmPassword;
         public static string OK => Resource.OK;
+        public static string ForgotPassword => Resource.ForgotPassword;
     }
 
 }

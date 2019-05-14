@@ -192,4 +192,7 @@
   <data name="OK" xml:space="preserve">
     <value>OK</value>
   </data>
+  <data name="ForgotPassword" xml:space="preserve">
+    <value>Esqueci minha Senha!</value>
+  </data>
 </root>

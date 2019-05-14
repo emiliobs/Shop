@@ -87,10 +87,18 @@
 
         public ICommand LoginCommand { get => new RelayCommand(Login); }
         public ICommand RegisterCommand { get => new RelayCommand(Register); }
+        public ICommand RememberPasswordCommand => new RelayCommand(RememberPassword);
+
 
         #endregion
 
         #region Methods
+
+        private async void RememberPassword()
+        {
+            MainViewModel.GetInstance().RememberPassword = new RememberPasswordViewModel();
+            await Application.Current.MainPage.Navigation.PushAsync(new RememberPasswordPage());
+        }
 
         private async void Register()
         {
