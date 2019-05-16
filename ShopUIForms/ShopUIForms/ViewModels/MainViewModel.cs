@@ -26,6 +26,7 @@ namespace ShopUIForms.ViewModels
         public EditProductViewModel EditProduct  { get; set; }
         public RegisterViewModel  Register { get; set; }
         public RememberPasswordViewModel RememberPassword { get; set; }
+        public User User  { get; set; }
         public string UserEmail { get; set; }
         public string UserPassword { get; set; }
         #endregion
@@ -78,6 +79,14 @@ namespace ShopUIForms.ViewModels
                     PageName = "AboutPage",
                     Title = "About"
                 },
+
+                 new Menu
+                {
+                    Icon = "ic_person",
+                    PageName = "ProfilePage",
+                    Title = "Modify User"
+                },
+
 
                 new Menu
                 {

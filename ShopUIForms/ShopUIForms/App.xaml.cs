@@ -25,9 +25,12 @@ namespace ShopUIForms
             if (Settings.IsRemember)
             {
                 var token = JsonConvert.DeserializeObject<TokenResponse>(Settings.Token);
+                //aqui deserializo de un un string a un user class:
+                var user = JsonConvert.DeserializeObject<User>(Settings.User);
                 if (token.Expiration > DateTime.Now)
                 {
                     var mainViewModel = MainViewModel.GetInstance();
+                    mainViewModel.User = user;
                     mainViewModel.Token = token;
                     mainViewModel.UserEmail = Settings.UserEmail;
                     mainViewModel.UserPassword = Settings.UserPassword;

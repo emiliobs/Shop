@@ -68,7 +68,7 @@
             var UrlApi = Application.Current.Resources["UrlApi"].ToString();
             var UrlApiProducts = Application.Current.Resources["UrlApiProducts"].ToString();
             var UrlproductsController = Application.Current.Resources["UrlproductsController"].ToString();
-            var bearer = Application.Current.Resources["bearer "].ToString();
+            var bearer = Application.Current.Resources["bearer"].ToString();
 
             Response response = await this.apiService.GetListAsync<Product>(UrlApi, UrlApiProducts, UrlproductsController, bearer,
                                                                             MainViewModel.GetInstance().Token.Token);

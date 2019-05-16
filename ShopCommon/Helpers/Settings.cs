@@ -10,6 +10,7 @@
         private const string userEmail = "userEmail";
         private const string userPassword = "userPassword";
         private const string isRemember = "isRemember";
+        private const string user = "user";
         private static readonly string stringDefault = string.Empty;
         private static readonly bool boolDefault = false;
         #endregion
@@ -18,6 +19,13 @@
 
         #region Properties
         public static ISettings AppSettings => CrossSettings.Current;
+
+        public static string User
+        {
+            get => AppSettings.GetValueOrDefault(user, stringDefault);
+            set => AppSettings.AddOrUpdateValue(user, value);
+        }
+
 
         public static string Token
         {

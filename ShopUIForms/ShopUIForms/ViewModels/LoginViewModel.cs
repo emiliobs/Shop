@@ -7,16 +7,15 @@
     using ShopCommon.Services;
     using ShopUIForms.Helpers;
     using ShopUIForms.Views;
-    using System;
     using System.Windows.Input;
     using Xamarin.Forms;
 
-    public class LoginViewModel:BaseViewModels
+    public class LoginViewModel : BaseViewModels
     {
 
         #region Attributtes
 
-        private ApiService apiService;
+        private readonly ApiService apiService;
         private bool isRunning;
         private bool isEnabled;
         private bool isRemember;
@@ -102,7 +101,7 @@
 
         private async void Register()
         {
-          MainViewModel.GetInstance().Register = new RegisterViewModel();
+            MainViewModel.GetInstance().Register = new RegisterViewModel();
             await Application.Current.MainPage.Navigation.PushModalAsync(new RegisterPage());
         }
 
@@ -113,7 +112,7 @@
             if (string.IsNullOrEmpty(Email))
             {
 
-                await Application.Current.MainPage.DisplayAlert(Languages.Error,Languages.EmailError,Languages.Accept);
+                await Application.Current.MainPage.DisplayAlert(Languages.Error, Languages.EmailError, Languages.Accept);
 
                 return;
             }
@@ -143,8 +142,8 @@
             //aqui ya consumo el token de seguridad:
             var request = new TokenRequest()
             {
-               Password = this.Password,
-               Username = this.Email,
+                Password = this.Password,
+                Username = this.Email,
             };
 
             //aqui me consumo la api:
@@ -159,13 +158,29 @@
 
             if (!response.IsSuccess)
             {
-                await Application.Current.MainPage.DisplayAlert(Languages.Error,Languages.LoginError, Languages.Accept);
+                await Application.Current.MainPage.DisplayAlert(Languages.Error, Languages.LoginError, Languages.Accept);
                 return;
             }
 
             //aqui deserializo el token
-            var token = (TokenResponse)response.Result;   
+            var token = (TokenResponse)response.Result;
+            //var UrlAccountControllerGetUserByEmail = Application.Current.Resources["UrlAccountControllerGetUserByEmail"].ToString();
+            //var Api = Application.Current.Resources["UrlApiProducts"].ToString();
+            //var bearer = Application.Current.Resources["bearer"].ToString();
+
+            var response2 = await this.apiService.GetUserByEmailAsync(
+                                 UrlApi,
+                                 "/api",
+                                 "/Account/GetUserByEmail",
+                                 this.Email,
+                                 "bearer",
+                                 token.Token);
+
+            var user = (User)response2.Result;
+
             var mainViewModel = MainViewModel.GetInstance();
+            //aqui guardo toslo datos del usurio e persistencia y en el mainviewmodel, para todo el proyecto traido desde la api:
+            mainViewModel.User = user;
             //aqui guardo el password y el usuario en memoria
             mainViewModel.UserEmail = this.Email;
             mainViewModel.UserPassword = this.Password;
@@ -184,6 +199,8 @@
             Settings.UserPassword = this.Password;
             //aqui converto el token de object a string
             Settings.Token = JsonConvert.SerializeObject(token);
+            //aqui gauro el usurio e persistencia comop un string:
+            Settings.User = JsonConvert.SerializeObject(user);
 
             //despues del login arranca por el masterdetailpage
             Application.Current.MainPage = new MasterPage();

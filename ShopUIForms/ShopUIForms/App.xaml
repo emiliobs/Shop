@@ -3,26 +3,29 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:infra="clr-namespace:ShopUIForms.Infrastructure"
              x:Class="ShopUIForms.App">
-    <Application.Resources>
-        <ResourceDictionary>
-         <!--Locator-->
-            <infra:InstanceLocator x:Key="Locator"></infra:InstanceLocator>
-            
-            <!--Paremeters-->
-            <x:String x:Key="UrlApi">https://shopzulu.azurewebsites.net</x:String>
-            <x:String x:Key="UrlApiAccount">/Account</x:String>
-            <x:String x:Key="UrlApiCreateToken">/CreateToken</x:String>
-            
-           <!--Urlproducts-->
-            <x:String x:Key="UrlApiProducts">/api</x:String>
-            <x:String x:Key="UrlproductsController">/products</x:String>
-            <x:String x:Key="UrlAccountController">/Account</x:String>
-            <x:String x:Key="UrlAccountControllerRecoveryPassword">/Account/RecoverPassword</x:String>
-            <x:String x:Key="bearer ">bearer</x:String>
+  <Application.Resources>
+    <ResourceDictionary>
+      <!--Locator-->
+      <infra:InstanceLocator x:Key="Locator"></infra:InstanceLocator>
 
-            <!--UrlCountries-->
-            <x:String x:Key="CountriesController">/Countries</x:String>
+      <!--Paremeters-->
+      <x:String x:Key="UrlApi">https://shopzulu.azurewebsites.net</x:String>
+      <x:String x:Key="UrlApiAccount">/Account</x:String>
+      <x:String x:Key="UrlApiCreateToken">/CreateToken</x:String>
 
-        </ResourceDictionary>
-    </Application.Resources>
+      <!--Urlproducts-->
+      <x:String x:Key="UrlApiProducts">/api</x:String>
+      <x:String x:Key="UrlproductsController">/products</x:String>
+      <x:String x:Key="UrlAccountController">/Account</x:String>
+      <x:String x:Key="UrlAccountControllerRecoveryPassword">/Account/RecoverPassword</x:String>
+      <x:String x:Key="UrlAccountControllerGetUserByEmail">/Account/GetUserByEmail</x:String>
+      <x:String x:Key="bearer">bearer</x:String>
+
+
+      <!--UrlCountries-->
+      <x:String x:Key="CountriesController">/Countries</x:String>
+
+    </ResourceDictionary>
+  </Application.Resources>
 </Application>
+
