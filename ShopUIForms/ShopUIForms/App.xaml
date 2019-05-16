@@ -17,6 +17,7 @@
             <x:String x:Key="UrlApiProducts">/api</x:String>
             <x:String x:Key="UrlproductsController">/products</x:String>
             <x:String x:Key="UrlAccountController">/Account</x:String>
+            <x:String x:Key="UrlAccountControllerRecoveryPassword">/Account/RecoverPassword</x:String>
             <x:String x:Key="bearer ">bearer</x:String>
 
             <!--UrlCountries-->

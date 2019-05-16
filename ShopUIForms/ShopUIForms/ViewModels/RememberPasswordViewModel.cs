@@ -2,6 +2,7 @@
 {
     using GalaSoft.MvvmLight.Command;
     using ShopCommon.Helpers;
+    using ShopCommon.Models;
     using ShopCommon.Services;
     using ShopUIForms.Helpers;
     using System;
@@ -82,6 +83,33 @@
                 return;
             }
 
+            this.IsRunning = true;
+            this.IsEnabled = false;
+
+            var request = new RecoverPasswordRequest
+            {
+                Email = this.Email,
+            };
+
+            var UrlApi = Application.Current.Resources["UrlApi"].ToString();
+            var Api = Application.Current.Resources["UrlApiProducts"].ToString();
+            var UrlAccountControllerRecoveryPasswordr = Application.Current.Resources["UrlAccountControllerRecoveryPassword"].ToString();
+            var response = await this.apiservice.RecoverPasswordAsync(UrlApi, Api, UrlAccountControllerRecoveryPasswordr, request);
+
+
+
+            this.IsRunning = false;
+            this.IsEnabled = true;
+
+            if (!response.IsSuccess)
+            {
+                await Application.Current.MainPage.DisplayAlert(Languages.Error,response.Message, Languages.Accept);
+                return;
+            }
+
+            await Application.Current.MainPage.DisplayAlert(Languages.OK, response.Message, Languages.Accept);
+
+            await Application.Current.MainPage.Navigation.PopAsync();
 
         }
 
