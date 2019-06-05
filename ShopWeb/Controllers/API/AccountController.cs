@@ -170,6 +170,47 @@
             return Ok(user);
         }
 
+        [HttpPost]
+        [Route("ChangePassword")]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+        public async Task<IActionResult> ChangePassword([FromBody] ChangePasswordRequest request)
+        {
+            if (!ModelState.IsValid)
+            {
+                return this.BadRequest(new Response
+                {
+                   IsSuccess = false,
+                   Message = "Bad request"
+                });
+            }
+
+            var user = await this.userHelper.GetUserByEmailAsync(request.Email);
+            if (user == null)
+            {
+                return this.BadRequest(new Response
+                {
+                    IsSuccess = false,
+                    Message = "This email is not assigned to any user",
+                });
+            }
+
+            var result = await this.userHelper.ChangePasswordAsync(user, request.OldPassword, request.NewPassword);
+            if (!result.Succeeded)
+            {
+                return this.BadRequest(new Response
+                {
+                    IsSuccess = false,
+                    Message = result.Errors.FirstOrDefault().Description
+                });
+            }
+
+            return this.Ok(new Response
+            {
+                IsSuccess = true,
+                Message = "The password was changed succesfully",
+            });
+        }
+
 
         #endregion
     }

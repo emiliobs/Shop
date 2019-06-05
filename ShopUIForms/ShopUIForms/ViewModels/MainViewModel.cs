@@ -27,6 +27,7 @@ namespace ShopUIForms.ViewModels
         public RegisterViewModel  Register { get; set; }
         public RememberPasswordViewModel RememberPassword { get; set; }
         public ProfileViewModel Profile { get; set; }
+        public ChangePasswordViewModel  ChangePassword { get; set; }
         public User User  { get; set; }
         public string UserEmail { get; set; }
         public string UserPassword { get; set; }

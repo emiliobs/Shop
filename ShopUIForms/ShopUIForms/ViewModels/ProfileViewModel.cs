@@ -5,6 +5,7 @@
     using ShopCommon.Helpers;
     using ShopCommon.Models;
     using ShopCommon.Services;
+    using ShopUIForms.Views;
     using System;
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
@@ -128,12 +129,18 @@
         #region Commands
 
         public ICommand SaveCommand => new RelayCommand(this.Save);
-
-
+        public ICommand ModifyPasswordCommand => new RelayCommand(ModifyPassword);
 
         #endregion
 
         #region Methods
+
+        private async void ModifyPassword()
+        {
+            MainViewModel.GetInstance().ChangePassword = new ChangePasswordViewModel();
+            await App.Navigator.PushAsync(new ChangePasswordPage());
+        }
+
         private async void Save()
         {
             if (string.IsNullOrEmpty(this.User.FirstName))
