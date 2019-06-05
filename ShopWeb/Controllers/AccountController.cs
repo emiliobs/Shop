@@ -454,6 +454,42 @@
             return this.RedirectToAction(nameof(Index));
         }
 
+        [HttpPut]
+        public async Task<IActionResult> PutUser([FromBody] ShopCommon.Models.User user)
+        {
+            if (!ModelState.IsValid)
+            {
+                return this.BadRequest(ModelState);
+            }
+
+            var userEntity = await this.userHelper.GetUserByEmailAsync(user.Email);
+            if (userEntity == null)
+            {
+                return this.BadRequest("User not found.");
+            }
+
+            var city = await this.countryRepository.GetCityAsync(user.CityId);
+            if (city != null)
+            {
+                userEntity.City = city;
+            }
+
+            userEntity.FirstName = user.FirstName;
+            userEntity.LastName = user.LastName;
+            userEntity.CityId = user.CityId;
+            userEntity.Address = user.Address;
+            userEntity.PhoneNumber = user.PhoneNumber;
+
+            var response = await this.userHelper.UpdateUserAsync(userEntity);
+            if (!response.Succeeded)
+            {
+                return this.BadRequest(response.Errors.FirstOrDefault().Description);
+            }
+
+            var updateUser = await this.userHelper.GetUserByEmailAsync(user.Email);
+
+            return Ok(updateUser);
+        }
        
 
 

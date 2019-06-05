@@ -28,7 +28,14 @@
                 case "SetupPage":
                     await App.Navigator.PushAsync(new SetupPage());
                     break;
+                case "ProfilePage":
+                    mainViewModel.Profile = new ProfileViewModel();
+                    await App.Navigator.PushAsync(new ProfilePage());
+                    break;
                 default:
+
+                    //cuando el usuaario haga logout, limpio el setting:
+                    Settings.User = string.Empty;
 
                     //here clear of  persitence datas
                     Settings.IsRemember = false;
