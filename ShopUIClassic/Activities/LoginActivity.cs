@@ -4,7 +4,7 @@
     using System.Collections.Generic;
     using System.Linq;
     using System.Text;
-
+    using System.Threading.Tasks;
     using Android.App;
     using Android.Content;
     using Android.OS;
@@ -12,6 +12,8 @@
     using Android.Support.V7.App;
     using Android.Views;
     using Android.Widget;
+    using Newtonsoft.Json;
+    using ShopCommon.Models;
     using ShopCommon.Services;
     using ShopUIClassic.Helpers;
 
@@ -39,17 +41,17 @@
         private void SetInitialData()
         {
             this.apiService = new ApiService();
-            //this.emailText.Text = "jzuluaga55@gmail.com";
-            //this.passwordText.Text ="123456";
+            this.emailText.Text = "jzuluaga55@gmail.com";
+            this.passwordText.Text = "123456";
             this.activityIndicatorProgressBar.Visibility = ViewStates.Invisible;
         }
 
         private void HandleEvents()
         {
-            this.loginButton.Click += LoginButton_Click;
+            this.loginButton.Click += LoginButton_ClickAsync;
         }
 
-        private void LoginButton_Click(object sender, EventArgs e)
+        private async void LoginButton_ClickAsync(object sender, EventArgs e)
         {
             if (string.IsNullOrEmpty(this.emailText.Text))
             {
@@ -63,10 +65,37 @@
                 return;
             }
 
-            DiaglogService.ShowMessage(this, "Perfect", "You are inside.....", "Accept");
+            this.activityIndicatorProgressBar.Visibility = ViewStates.Visible;
+            this.loginButton.Enabled = false;
+
+            var request = new TokenRequest
+            {
+               Password = this.passwordText.Text,
+               Username = this.emailText.Text,
+            };
+
+            var response = await this.apiService.GetTokenAsync("https://shopzulu.azurewebsites.net",
+                                                               "/Account","/CreateToken", request);
+
+            this.activityIndicatorProgressBar.Visibility = ViewStates.Invisible;
+            this.loginButton.Enabled = true;
+
+            if (!response.IsSuccess)
+            {
+                DiaglogService.ShowMessage(this,"Error","User or Password incorrect","Accept");
+                return;
+            }
+
+            var token = (TokenResponse)response.Result;
+            var intent = new Intent(this, typeof(ProductActivity));
+            intent.PutExtra("token", JsonConvert.SerializeObject(token));
+            intent.PutExtra("email", this.emailText.Text);
+            this.StartActivity(intent);
+
 
         }
 
+     
         private void FindViews()
         {
             this.emailText = FindViewById<EditText>(Resource.Id.editTextEmail);
