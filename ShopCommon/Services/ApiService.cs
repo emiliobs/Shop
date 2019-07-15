@@ -9,7 +9,7 @@
     using System.Text;
     using System.Threading.Tasks;
 
-    public class ApiService
+    public class ApiService : IApiService
     {
         public async Task<Response> GetListAsync<T>(string urlBase, string servicePrefix, string controller)
         {
@@ -409,13 +409,13 @@
             }
         }
 
-      public async Task<Response> ChangePasswordAsync(
-      string urlBase,
-      string servicePrefix,
-      string controller,
-      ChangePasswordRequest changePasswordRequest,
-      string tokenType,
-      string accessToken)
+        public async Task<Response> ChangePasswordAsync(
+        string urlBase,
+        string servicePrefix,
+        string controller,
+        ChangePasswordRequest changePasswordRequest,
+        string tokenType,
+        string accessToken)
         {
             try
             {
